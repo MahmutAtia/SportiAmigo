@@ -17,14 +17,36 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include  # Add include to the import statement here
 from rest_framework.authtoken.views import obtain_auth_token
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Your API Documentation",
+        default_version='v1',
+        description="Description of your API",
+        terms_of_service="https://www.your-terms-of-service.com/",
+        contact=openapi.Contact(email="contact@your-email.com"),
+        license=openapi.License(name="Your License"),
+    ),
+    public=True,
+)
+
+patterns = [
+    # ... your other URL patterns ...
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+]
+
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
     path('api/userauth/', include('userauth.urls')),  # Include userauth URLs
-
     path('api/sports/', include('sportsapi.urls')),  # Include sportsapi URLs
     path('api/facility/', include('facility.urls')),  # Include facility URLs
     
 ]
+
+
+urlpatterns += patterns
