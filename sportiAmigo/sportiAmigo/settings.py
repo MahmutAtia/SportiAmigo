@@ -61,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+     'corsheaders.middleware.CorsMiddleware',  # Add this line
 ]
 
 ROOT_URLCONF = 'sportiAmigo.urls'
@@ -151,3 +152,13 @@ REST_FRAMEWORK = {
     ),
 
 }
+
+
+# CORS
+CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOWED_ORIGINS = [
+#       # Replace with your React Native app's URL
+# ]
+
+
+ALLOWED_HOSTS = ['*']

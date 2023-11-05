@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
-import { ActivityIndicator,
-    //  AsyncStorage,
-     StatusBar, StyleSheet, View } from 'react-native';
+import { ActivityIndicator,StatusBar, StyleSheet, View } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AuthLoadingScreen = ({ navigation }) => {
   useEffect(() => {
     const _bootstrapAsync = async () => {
-    //   const userToken = await AsyncStorage.getItem('userToken');
-        const userToken = true;
+        const userToken = await AsyncStorage.getItem('userToken');
 
 
       // This will switch to the App screen or Auth screen and this loading
