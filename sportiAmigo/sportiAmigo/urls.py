@@ -20,6 +20,9 @@ from rest_framework.authtoken.views import obtain_auth_token
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+from events.urls import router
+
+
 schema_view = get_schema_view(
     openapi.Info(
         title="Your API Documentation",
@@ -45,6 +48,7 @@ urlpatterns = [
     path('api/userauth/', include('userauth.urls')),  # Include userauth URLs
     path('api/sports/', include('sportsapi.urls')),  # Include sportsapi URLs
     path('api/facility/', include('facility.urls')),  # Include facility URLs
+    path('api/sportevents/', include(router.urls)),
     
 ]
 

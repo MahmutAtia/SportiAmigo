@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'drf_yasg',  # for swagger documentation
+    'django_extensions',  # for django-extensions
 
     'rest_framework',
     'rest_framework.authtoken',
@@ -45,6 +46,8 @@ INSTALLED_APPS = [
     'sportsapi',  # api app
     'userauth',  # user authentication app
     'facility',  # facility app
+    'events',  # events 
+    'friends',  # friends app
 
 
 
