@@ -1,7 +1,8 @@
 
 import React from 'react';
 import { View, Button } from 'react-native';
-// import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 function HomeScreen({ navigation }) {
     const showMoreApp = () => {
@@ -9,7 +10,7 @@ function HomeScreen({ navigation }) {
     };
   
     const signOutAsync = async () => {
-    //   await AsyncStorage.clear();
+      await AsyncStorage.clear();
       navigation.navigate('Auth');
     };
   
@@ -21,8 +22,6 @@ function HomeScreen({ navigation }) {
     );
   }
   
-  HomeScreen.navigationOptions = {
-    title: 'Welcome to the app!',
-  };
+
 
   export default HomeScreen;

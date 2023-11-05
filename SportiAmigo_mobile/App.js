@@ -8,13 +8,18 @@ import HomeScreen from './src/Screens/HomeScreen';
 import SignInScreen from './src/Screens/SignInScreen';
 
 
+// UI Kitten
+import * as eva from '@eva-design/eva';
+import { ApplicationProvider, Layout, Text } from '@ui-kitten/components';
+
+
 // Implementation of HomeScreen, OtherScreen, SignInScreen, AuthLoadingScreen
 // goes here.
 
 const AppStack = createStackNavigator({ Home: HomeScreen, Search: SearchScreen});
 const AuthStack = createStackNavigator({ SignIn: SignInScreen });
 
-export default createAppContainer(
+const  AppContainer = createAppContainer(
   createSwitchNavigator(
     {
       AuthLoading: AuthLoadingScreen,
@@ -25,4 +30,13 @@ export default createAppContainer(
       initialRouteName: 'AuthLoading',
     }
   )
+);
+
+
+// export default AppContainer;
+
+export default () => (
+  <ApplicationProvider {...eva} theme={eva.light}>
+    < AppContainer />
+  </ApplicationProvider>
 );
