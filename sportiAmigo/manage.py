@@ -3,7 +3,6 @@
 import os
 import sys
 
-from userauth.models import CustomUser
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sportiAmigo.settings')
