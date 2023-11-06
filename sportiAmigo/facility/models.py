@@ -1,10 +1,24 @@
 from django.db import models
-from userauth.models import CustomUser
+from sportsapi.models import Sport
+from multiselectfield import MultiSelectField
+
+
+
+
+
+
+
 class Facility(models.Model):
+
     name = models.CharField(max_length=100, verbose_name="Facility Name")
 
-    # Address of the facility
-    address = models.CharField(max_length=200, verbose_name="Facility Address")
+    # Address details
+    country = models.CharField(max_length=100, verbose_name="Country", blank=True, null=True)
+    city = models.CharField(max_length=100, verbose_name="City", blank=True, null=True)
+    neighborhood = models.CharField(max_length=100, verbose_name="Neighborhood", blank=True, null=True)
+    address = models.CharField(max_length=200, verbose_name="Facility Address", blank=True, null=True)
+    # ... other fields ...
+
 
     # Maximum capacity of the facility
     capacity = models.PositiveIntegerField(verbose_name="Capacity")
@@ -33,6 +47,20 @@ class Facility(models.Model):
     location_latitude = models.FloatField(blank=True, null=True, verbose_name="Latitude")
     location_longitude = models.FloatField(blank=True, null=True, verbose_name="Longitude")
 
+
+    # Specify available sports
+    sports = models.ManyToManyField(Sport, related_name='facilities', blank=True, verbose_name="Available Sports")
+   
+   
+    # Specify Gender    choices
+    GENDER_CHOICES = [
+        ('Men', 'Men Only'),
+        ('Women', 'Women Only'),
+        ('Mixed', 'Mixed Use'),]
+    gender_choices =  MultiSelectField(choices=GENDER_CHOICES,default=['Mixed'], max_choices=3, max_length=12, verbose_name="GENDER CHOICES")
+
+    
+
     def __str__(self):
         return self.name
 
@@ -44,11 +72,11 @@ class Facility(models.Model):
 
 
 class FacilityReservation(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user = models.ForeignKey("userauth.CustomUser", on_delete=models.CASCADE)
     facility = models.ForeignKey(Facility, on_delete=models.CASCADE)
     reserved_at = models.DateTimeField(auto_now_add=True)
     
 class FacilityCheckIn(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user = models.ForeignKey("userauth.CustomUser", on_delete=models.CASCADE)
     facility = models.ForeignKey(Facility, on_delete=models.CASCADE)
     checkin_at = models.DateTimeField(auto_now_add=True)

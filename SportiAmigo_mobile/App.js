@@ -17,7 +17,7 @@ import { ApplicationProvider, Layout, Text } from '@ui-kitten/components';
 // goes here.
 
 const AppStack = createStackNavigator({ Home: HomeScreen, Search: SearchScreen});
-const AuthStack = createStackNavigator({ SignIn: SignInScreen });
+const AuthStack = createStackNavigator({ SignIn: SignInScreen});
 
 const  AppContainer = createAppContainer(
   createSwitchNavigator(

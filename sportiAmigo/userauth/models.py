@@ -3,7 +3,6 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils import timezone
-
 from sportsapi.models import Sport
 
 class CustomUserManager(BaseUserManager):
@@ -58,3 +57,19 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+
+
+
+
+class FacilityAdministrator(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='facility_administrator')
+    facility = models.ForeignKey('facility.Facility', on_delete=models.CASCADE, related_name='administrators', null=True, blank=True)
+ 
+    role = models.CharField(max_length=100)
+    responsibilities = models.TextField(blank=True, null=True)
+    working_hours = models.CharField(max_length=200, blank=True, null=True)
+    # profile_picture = models.ImageField(upload_to='administrator_profiles/', blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.user.first_name} {self.user.last_name} - {self.facility.name} Administrator'

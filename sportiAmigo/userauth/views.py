@@ -20,7 +20,7 @@ def registration_view(request):
         serializer.save() # we create a new user
         user = User.objects.get(email=request.data['email'])
         user.set_password(request.data['password'])
-        user.is_active = True
+        user.is_active = True #make the user active
         user.save()
         return Response({'msg': "User Created", 'user': serializer.data})
     return Response(serializer.errors, status=status.HTTP_200_OK)
@@ -32,12 +32,12 @@ def registration_view(request):
 @api_view(['POST'])
 def login(request):    
     user = get_object_or_404(CustomUser, email=request.data['email'])
-    print(user.password)
     if not user.check_password(request.data['password']):
         return Response("missing user", status=status.HTTP_401_UNAUTHORIZED)
     token, created = Token.objects.get_or_create(user=user)
     serializer = UserSerializer(user)
     return Response({'token': token.key, 'user': serializer.data})
+
 
 # Profile view for authenticated users
 class UserProfileView(APIView):
@@ -47,3 +47,11 @@ class UserProfileView(APIView):
     def get(self, request):
         user_data = UserSerializer(request.user).data
         return Response(user_data, status=status.HTTP_200_OK)
+
+    def put(self, request):
+        serializer = UserSerializer(request.user, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
