@@ -16,7 +16,7 @@ import AppDrawerNavigator from "./Layouts/HomeLayout";
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux'
-import { loginSuccess, logout, restoreToken } from './features/userFeature/authSlice'
+import { loginFailure, loginSuccess, logout, restoreToken } from './features/userFeature/authSlice'
  
 
 
@@ -35,11 +35,14 @@ function Index() {
   useEffect(() => {
     const _bootstrapAsync = async () => {
       const userToken = await AsyncStorage.getItem("userToken");
-      // const userInfo = await AsyncStorage.getItem("userInfo");
+      const userInfo = await AsyncStorage.getItem("userInfo");
       console.log("userToken", userToken);
-      // console.log("userInfo", userInfo);
+      console.log("userInfo", userInfo);
       if (userToken) {
-        dispatch(loginSuccess({ userToken, userInfo: null }))
+        dispatch(loginSuccess({ userToken, userInfo: JSON.parse(userInfo) }))
+      }
+      else {
+        dispatch(loginFailure())
       }
     };
 
@@ -65,7 +68,7 @@ function Index() {
 
           <Stack.Navigator>
 
-            {state.userToken == null ? (
+            {!state.userToken  ? (
               <>
         <Stack.Screen name="SignIn" component={SignInScreen}
         options={{
