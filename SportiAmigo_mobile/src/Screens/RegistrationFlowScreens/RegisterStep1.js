@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Input, Button, Text } from '@ui-kitten/components';
-import axios from 'axios'; // Import axios for API requests
+import axios from '../../axiosConfig'; // Import the Axios instance you created
 import { theme } from '../../themes'; // Import your custom theme
 
 function RegisterStep1({ navigation }) {
@@ -27,11 +27,16 @@ function RegisterStep1({ navigation }) {
 
     try {
       // Make an API POST request to register the user
-      const response = await axios.post('/api/register/', userData);
+      const response = await axios.post('/api/userauth/register/', userData);
+      console.log(response.data);
+      console.log(response.status);
 
       if (response.status === 201) {
         // Registration was successful
         navigation.navigate('RegisterStep2'); // Navigate to the next registration step
+      } else if (response.status === 200) {
+        // User already exists
+        alert('This email address is already registered.');
       } else {
         // Handle registration error
         alert('Registration failed. Please try again.');

@@ -11,7 +11,7 @@ function HomeScreen({ navigation }) {
   
     const signOutAsync = async () => {
       await AsyncStorage.clear();
-      navigation.navigate('Auth');
+      navigation.navigate('SignOutConfirmation');
     };
   
     return (

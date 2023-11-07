@@ -22,7 +22,7 @@ def registration_view(request):
         user.set_password(request.data['password'])
         user.is_active = True #make the user active
         user.save()
-        return Response({'msg': "User Created", 'user': serializer.data})
+        return Response({'msg': "User Created", 'user': serializer.data}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_200_OK)
 
 

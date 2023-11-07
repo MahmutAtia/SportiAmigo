@@ -102,12 +102,17 @@ function SignInScreen({ navigation }) {
 
     <Button
       title="Register"
-      onPress={() => navigation.navigate('Register')}
+      onPress={() => navigation.navigate('RegisterStep1')}
       style={{ backgroundColor: theme.colors.primary, borderColor: theme.colors.primary }}
       icon={(props) => <Icon {...props} name= 'person-add-outline'/>}
     >
       Register
     </Button>
+
+
+    {/* Testing purposes only */}
+    <Button onPress={() => navigation.navigate('RegisterStep2')} style={{ backgroundColor: theme.colors.button, borderColor: theme.colors.button, marginBottom: 16 }}/>
+    <Button onPress={() => navigation.navigate('RegisterStep3')} style={{ backgroundColor: theme.colors.button, borderColor: theme.colors.button, marginBottom: 16 }}/>
   </View>
   );
 }
