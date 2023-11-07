@@ -15,6 +15,8 @@ import Splash from "./src/Screens/RegistrationFlowScreens/Splach";
 import SignOutConfirmationScreen from "./src/Screens/RegistrationFlowScreens/SignOutConfirmationScreen";
 import RegisterStep3 from "./src/Screens/RegistrationFlowScreens/RegisterStep3";
 import RegisterStep2 from "./src/Screens/RegistrationFlowScreens/RegisterStep2";
+import AppDrawerNavigator from "./src/Layouts/HomeLayout";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -40,7 +42,7 @@ function App() {
       <NavigationContainer>
       <Stack.Navigator initialRouteName={isLoading ? 'SplashScreen' : userToken ? 'App' : 'SignIn'}>
         <Stack.Screen name="SplashScreen" component={Splash}   options={{ headerShown: false }}/>
-        <Stack.Screen name="App" component={HomeScreen}   options={{ headerShown: false }}/>
+        <Stack.Screen name="App" component={AppDrawerNavigator}   options={{ headerShown: false }}/>
         <Stack.Screen name="Search" component={SearchScreen}   options={{ headerShown: false }}/>
 
 

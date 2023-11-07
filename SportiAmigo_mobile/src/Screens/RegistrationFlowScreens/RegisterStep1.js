@@ -10,6 +10,9 @@ function RegisterStep1({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+
+
+
   const handleNext = async () => {
     // Perform user input validation here
     if (!firstName || !lastName || !email || !password) {
