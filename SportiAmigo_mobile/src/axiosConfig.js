@@ -1,8 +1,14 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://1e43-78-174-214-226.ngrok-free.app', // Replace with your API base URL
+  baseURL: 'https://edb6-85-110-36-173.ngrok-free.app', // Replace with your API base URL
   timeout: 5000, // Set a reasonable timeout
+  headers: {
+    'Content-Type': 'application/json',
+    // 'Authorization':  AsyncStorage.getItem('userToken') ? `Token ${AsyncStorage.getItem('userToken')}` : null,
+  },
+
 
 });
 

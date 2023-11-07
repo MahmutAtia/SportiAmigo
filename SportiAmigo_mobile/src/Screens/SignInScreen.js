@@ -4,10 +4,13 @@ import { View} from "react-native";
 import axios from "../axiosConfig"; // Import the Axios instance you created
 import { Input, Button, Text, Icon } from '@ui-kitten/components';
 import { theme } from '../themes';
+import { useDispatch } from 'react-redux'
+import { loginSuccess } from '../features/userFeature/authSlice'
 
 function SignInScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch()
 
   const signInAsync = async () => {
     // Basic validation
@@ -24,11 +27,15 @@ function SignInScreen({ navigation }) {
       // Assuming your API returns a token upon successful authentication
       if (response.status === 200) {
         const data = response.data;
+        console.log(data);
+
+        // Store the token in AsyncStorage
         await AsyncStorage.setItem("userToken", data.token);
+        await AsyncStorage.setItem("userInfo", JSON.stringify(data.user));
 
-        // we will store the user data in AsyncStorage base on the user id or redux
+        // Dispatch the action to the reducer to update the state
+        dispatch(loginSuccess({ userToken: data.token, userInfo: data.user }));
 
-        navigation.navigate("App");
       } else {
        
           // Handle other error cases
