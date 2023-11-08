@@ -1,0 +1,135 @@
+import React, { useEffect, useState } from 'react';
+import Autocomplete from 'react-native-autocomplete-input';
+import {
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { Input,Text,List } from '@ui-kitten/components';
+  
+
+// Function to filter countries based on the search query
+const filterData = (data, query) => {
+    const normalizedQuery = query.toLowerCase();
+    return data.filter((ele) =>
+    ele.name.toLowerCase().includes(normalizedQuery)
+    );
+  };
+function CustomAutocomplete({data,onSelect}) {
+  
+
+  const [query, setQuery] = useState('Turkey');
+  const isLoading = !data.length;
+  const queriedData= React.useMemo(
+    () => filterData(data, query),
+    [data, query]
+  );
+
+  const suggestions = React.useMemo(
+    () =>
+    queriedData.length === 1 && queriedData[0].name.toLowerCase() === query.toLowerCase()
+        ? []
+        : queriedData,
+    [queriedData, query]
+  );
+
+  const placeholder = isLoading ? 'Loading countries...' : 'Enter a country name';
+
+
+
+// 
+  const handleSelect = (item) => {
+    setQuery(item.name);
+    onSelect(item);
+  };
+
+  return (
+        <View style={{flexDirection:"row"}}>
+        <Autocomplete
+
+        listStyle = {{
+            borderWidth: 0,
+            borderColor: '#fff',
+            backgroundColor:"black",
+        }}
+        renderResultList={(props) => {
+            return (<List {...props} />)    
+        }}
+
+        listContainerStyle	= {{
+        borderWidth: 0,
+        borderColor: '#fff',
+        flexDirection: 'row',
+
+        }}
+
+        inputContainerStyle    = {{
+        borderWidth: 0,
+        borderColor: '#fff',
+        }}
+       
+      
+          renderTextInput={(props) => (
+            <Input {...props}  />
+            )}
+
+          autoCapitalize="none"
+          autoCorrect={false}
+          data={suggestions}
+          value={query}
+          onChangeText={setQuery}
+          on
+          placeholder={placeholder}
+          flatListProps={{
+            keyboardShouldPersistTaps: 'handled',
+            keyExtractor: (ele) =>  ele.id,
+            renderItem: ({ item }) => (
+              <TouchableOpacity onPress={() => handleSelect(item)}>
+                <Text style={styles.itemText}>{item.name}</Text>
+              </TouchableOpacity>
+            ),
+            style: {
+                borderWidth: 0,
+                borderColor: '#fff',
+            }
+          }}
+    
+        />
+        </View>
+  );
+}
+
+const styles = StyleSheet.create({
+    container: {
+      backgroundColor: 'white', // Set your background color
+      paddingTop: Platform.OS === 'android' ? 50 : 0,
+      marginTop: Platform.OS === 'android' ? 25 : 0,
+      flexDirection: 'row',
+    },
+    autocomplete: {
+      backgroundColor: 'white', // Set background color for the autocomplete component
+      borderBottomColor: '#000000', // Add bottom border color
+      borderBottomWidth: 1, // Add a bottom border
+      paddingVertical: 8, // Add vertical padding
+    },
+    autocompleteContainer: {
+      flex: 1,
+      left: 0,
+      position: 'absolute',
+      right: 0,
+      top: 0,
+      zIndex: 1,
+    },
+    suggestionText: {
+      color: '#000000', // Set text color
+    },
+    placeholderText: {
+      color: '#999999', // Set placeholder text color
+    },
+    loadingText: {
+      textAlign: 'center', // Center loading text
+    },
+  });
+
+export default CustomAutocomplete;

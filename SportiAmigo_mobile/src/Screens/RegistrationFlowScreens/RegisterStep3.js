@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, Button, Input, Icon, Layout } from '@ui-kitten/components';
+import { Text, Button, Input, Icon, Layout, Select, SelectItem } from '@ui-kitten/components';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Picker } from '@react-native-picker/picker';
 import { fetchCities, fetchCountries } from '../../../utils/GeoHelperFunc';
+import { theme } from '../../themes';
+import CustomSelect from '../../Components/CustomSelect';
+import CustomAutoComplete from '../../Components/CustomAutocomplete';
+import LoadingPage from '../LoadingScreen';
 
 const RegisterStep3 = ({ navigation }) => {
+
+
+
+  const [loading, setLoading] = useState(true); // State to track loading state
+
   const [address, setAddress] = useState('');
   const [country, setCountry] = useState('');
   const [city, setCity] = useState('');
@@ -17,26 +26,26 @@ const RegisterStep3 = ({ navigation }) => {
   
 
   // For the Picker component
-  const [countries, setCountries] = useState([]); // State variable for countries
+  const [countries, setCountries] = useState([ ]); // State variable for countries
+
   const [cities, setCities] = useState([]); // State variable for cities
 
 
 
 
-
-  const handleCountryChange = async (coutryjobg) => {
-    setCountry(coutryjobg);
-
+  const onCountrySelect = async(item) => {
+    setCountry(item.name);
     try {
-      const cityData = await fetchCities(coutryjobg.iso2);
+      const cityData = await fetchCities(item.iso2);
       setCities(cityData);
+      console.log(cityData);
     } catch (error) {
       console.error('Error fetching cities:', error);
     }
   };
   
   
-  const handleCityChange = (selectedCity, setCity) => {
+  const handleCityChange = (selectedCity) => {
     setCity(selectedCity);
     // Fetch data and update component state
 
@@ -106,16 +115,18 @@ const RegisterStep3 = ({ navigation }) => {
   
   
     // Fetch countries just once, when the component mounts
-    fetchCountries()
-      .then((countryData) => {
-        setCountries(countryData);
-      })
-      .catch((error) => {
-        console.error('Error fetching countries:', error);
-      });
-  
-  
+   
+    fetchCountries().then((data) => { 
+      setCountries(data);
+      setLoading(false);
+      
+    }).catch((error) => {   
+      console.error('Error fetching countries:', error);
+    }); 
+    
+      
   }, []);
+
 
     // console.log(location["coords"]["latitude"]);
     // console.log(location["coords"]["longitude"]);
@@ -130,80 +141,68 @@ const RegisterStep3 = ({ navigation }) => {
       neighborhood,
     });
   };
+ return loading ? <LoadingPage /> : (    <Layout style={styles.container}>
+  {/* <Icon
+    name="map"
+    fill="#FF6666"
+    style={styles.icon}
+  /> */}
+  <Text category="h4" style={styles.title}>
+    Location
+  </Text>
+  <Text style={styles.subtitle}>
+    Where are you located?
+  </Text>
+  <Input
+    label="Address"
+    placeholder="Enter your address"
+    value={address}
+    onChangeText={setAddress}
+    style={styles.input}
+  />
 
-  return (
-    <Layout style={styles.container}>
-      {/* <Icon
-        name="map"
-        fill="#FF6666"
-        style={styles.icon}
-      /> */}
-      <Text category="h4" style={styles.title}>
-        Location
-      </Text>
-      <Text style={styles.subtitle}>
-        Where are you located?
-      </Text>
-      <Input
-        label="Address"
-        placeholder="Enter your address"
-        value={address}
-        onChangeText={setAddress}
-        style={styles.input}
+  <Input label="Country" value={country} disabled style={styles.input} />
+
+
+  <CustomAutoComplete data={countries} onSelect={onCountrySelect}  placeholder="Select your Country" />
+
+  {/* <Picker
+    selectedValue={city}
+    onValueChange={handleCityChange}
+  >
+    {cities.map((city) => (
+      <Picker.Item key={city.id} label={city.name} value={city} />
+    ))}
+  </Picker> */}
+  {/* ... other UI elements */}
+  <MapView
+    provider={PROVIDER_GOOGLE}
+    style={styles.map}
+    initialRegion={{
+          //specify our coordinates.
+      latitude: 39.9334,
+      longitude: 32.8597,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    }}
+  >
+    {location && (
+      <Marker
+      onDragEnd={handleMarkerDragEnd}
+      draggable
+        coordinate={{
+          latitude: location.latitude,
+          longitude: location.longitude,
+        } }
+        title="Selected Location"
+        description="Your address"
       />
-
-
-       <Layout style={styles.container}>
-      <Picker
-        selectedValue={country.name}
-        onValueChange={handleCountryChange}
-      >
-        {/* Render a list of countries */}
-        {countries.map((country) => (
-          <Picker.Item key={country.id} label={country.name} value={country} />
-        ))}
-
-      </Picker>
-
-      <Picker
-        selectedValue={city}
-        onValueChange={handleCityChange}
-      >
-        {cities.map((city) => (
-          <Picker.Item key={city.id} label={city.name} value={city} />
-        ))}
-      </Picker>
-      {/* ... other UI elements */}
-    </Layout>
-      <MapView
-        provider={PROVIDER_GOOGLE}
-        style={styles.map}
-        initialRegion={{
-              //specify our coordinates.
-          latitude: 39.9334,
-          longitude: 32.8597,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      >
-        {location && (
-          <Marker
-          onDragEnd={handleMarkerDragEnd}
-          draggable
-            coordinate={{
-              latitude: location.latitude,
-              longitude: location.longitude,
-            } }
-            title="Selected Location"
-            description="Your address"
-          />
-        )}
-      </MapView>
-      <Button onPress={handleNext} style={styles.button}>
-        Next
-      </Button>
-    </Layout>
-  );
+    )}
+  </MapView>
+  <Button onPress={handleNext} style={styles.button}>
+    Next
+  </Button>
+</Layout>);
 };
 
 const styles = StyleSheet.create({
@@ -236,6 +235,13 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 16,
     backgroundColor: '#FF6666',
+  },
+
+  select: {
+    width: '100%', // You can adjust the width as needed
+    borderRadius: 8, // Adjust the border radius as needed
+    backgroundColor: theme.colors.background, // Use your theme background color
+    borderColor: theme.colors.primary, // Use your theme primary color
   },
 });
 

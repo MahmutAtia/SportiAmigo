@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://edb6-85-110-36-173.ngrok-free.app', // Replace with your API base URL
+  baseURL: 'https://e933-78-174-214-226.ngrok-free.app', // Replace with your API base URL
   timeout: 5000, // Set a reasonable timeout
   headers: {
     'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ const cityapi = axios.create({
   baseURL: 'https://api.countrystatecity.in/v1/countries', // Replace with your API base URL
   timeout: 5000, // Set a reasonable timeout
   headers: {
-    'X-CSCAPI-KEY': '962579e1733a4ce4847976a35d27c8a8'
+    'X-CSCAPI-KEY': 'ZklYd0oxZEVVRGtlRzNDMEtSYVVZcjJpUGVuc1htVnBNc25qTXhLUg=='
   }
   
 });
