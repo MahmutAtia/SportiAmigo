@@ -16,10 +16,12 @@ const filterData = (data, query) => {
     ele.name.toLowerCase().includes(normalizedQuery)
     );
   };
-function CustomAutocomplete({data,onSelect}) {
+function CustomAutocomplete({data,onSelect,disabled, style, placeholder}) {
+    console.log(disabled,"disabled")
+    console.log(data.length,"data")
   
 
-  const [query, setQuery] = useState('Turkey');
+  const [query, setQuery] = useState('');
   const isLoading = !data.length;
   const queriedData= React.useMemo(
     () => filterData(data, query),
@@ -34,7 +36,6 @@ function CustomAutocomplete({data,onSelect}) {
     [queriedData, query]
   );
 
-  const placeholder = isLoading ? 'Loading countries...' : 'Enter a country name';
 
 
 
@@ -71,7 +72,7 @@ function CustomAutocomplete({data,onSelect}) {
        
       
           renderTextInput={(props) => (
-            <Input {...props}  />
+            <Input {...props} disabled={disabled} style={style}/>
             )}
 
           autoCapitalize="none"
@@ -79,13 +80,13 @@ function CustomAutocomplete({data,onSelect}) {
           data={suggestions}
           value={query}
           onChangeText={setQuery}
-          on
           placeholder={placeholder}
           flatListProps={{
+            height: 150,
             keyboardShouldPersistTaps: 'handled',
             keyExtractor: (ele) =>  ele.id,
             renderItem: ({ item }) => (
-              <TouchableOpacity onPress={() => handleSelect(item)}>
+              <TouchableOpacity style={styles.suggestionItem} onPress={() => handleSelect(item)}>
                 <Text style={styles.itemText}>{item.name}</Text>
               </TouchableOpacity>
             ),
@@ -120,6 +121,12 @@ const styles = StyleSheet.create({
       right: 0,
       top: 0,
       zIndex: 1,
+    },
+    suggestionItem: {
+      paddingVertical: 10,
+      paddingHorizontal: 15,
+      borderBottomWidth: 1,
+      borderBottomColor: '#eeeeee',
     },
     suggestionText: {
       color: '#000000', // Set text color

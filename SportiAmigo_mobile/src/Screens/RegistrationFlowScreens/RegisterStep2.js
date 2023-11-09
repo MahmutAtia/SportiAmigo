@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Button, Input, Icon, Layout } from '@ui-kitten/components';
+import DottedProgress from '../../Components/DottedProgress ';
 
 const RegisterStep2 = ({ navigation, route }) => {
   const [phone, setPhone] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [gender, setGender] = useState('');
   const [favoriteSports, setFavoriteSports] = useState('');
+
+  // get the total number of steps from the route params
+  const { totalSteps } = route.params;
+  
+  
+
 
 
   const handleNext = () => {
@@ -21,6 +28,9 @@ const RegisterStep2 = ({ navigation, route }) => {
         fill="#FF6666"
         style={styles.icon}
       /> */}
+
+      <DottedProgress totalSteps={totalSteps} currentStep={2} />
+
       <Text category="h4" style={styles.title}>
         Personal Info
       </Text>

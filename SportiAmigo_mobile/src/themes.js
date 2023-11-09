@@ -1,18 +1,78 @@
 import { StyleSheet } from 'react-native';
 import { DefaultTheme } from '@react-navigation/native';
-
 export const theme = {
-    colors: {
-      primary: '#FF6666',
-      secondary: '#FFAA99',
-      background: '#F5F5F5',
-      text: '#333333',
-      button: '#D9534F',
-      buttonText: '#FFFFFF',
+  colors: {
+    primary: '#3498db',      // Blue color for primary
+    secondary: '#2980b9',    // Darker blue color for secondary
+    background: '#ecf0f1',   // Light background color
+    text: '#2c3e50',         // Dark text color
+    button: '#3498db',       // Blue button color
+    buttonText: '#FFFFFF',    // White button text color
+    border: '#bdc3c7',        // Border color
+    placeholder: '#95a5a6',  // Placeholder color
+    accent: '#f39c12',        // Accent color (e.g., for highlighting)
+  },
+  spacing: {
+    small: 8,
+    medium: 16,
+    large: 24,
+  },
+  typography: {
+    h1: {
+      fontSize: 28,
+      fontWeight: 'bold',
+      marginBottom: 8,
+      color: '#2c3e50',
     },
-    // Add other styling options here, such as typography, spacing, etc.
-  };
-
+    h2: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      marginBottom: 8,
+      color: '#2c3e50',
+    },
+    h3: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      marginBottom: 8,
+      color: '#2c3e50',
+    },
+    subtitle: {
+      fontSize: 16,
+      marginBottom: 16,
+      color: '#95a5a6',
+    },
+    body: {
+      fontSize: 14,
+      marginBottom: 16,
+      color: '#2c3e50',
+    },
+    button: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      color: '#FFFFFF',
+    },
+  },
+  button: {
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    backgroundColor: '#3498db',
+  },
+  input: {
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#bdc3c7',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    marginBottom: 16,
+    color: '#2c3e50',
+  },
+  map: {
+    flex: 1,
+    height: 200,
+    marginBottom: 16,
+  },
+};
 
 
 

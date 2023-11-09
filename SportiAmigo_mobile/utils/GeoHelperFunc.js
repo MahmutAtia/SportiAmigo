@@ -2,7 +2,7 @@ import { cityapi } from "../src/axiosConfig";
 // Function to fetch cities based on the selected country
 const fetchCountries = async () => {
   try {
-    const response = await cityapi.get( "");
+    const response = await cityapi.get( );
     if (response.status === 200) {
       return response.data;
     } else {
@@ -13,15 +13,14 @@ const fetchCountries = async () => {
   }
 };
 
-// Function to fetch countries (if needed)
-const fetchCities = async (country_id) => {
-  // Implement the logic to fetch a list of countries
-  // You can return an array of country objects with 'id' and 'name' properties.
-  // Replace the URL and data structure with the appropriate values.
+
+
+
+
+const fetchStates = async (county_iso2) => {
   try {
-    const response = await cityapi.get( "/"+ country_id + '/states');
+    const response = await cityapi.get( "/" + county_iso2 +"/states/");
     if (response.status === 200) {
-        console.log(response.data);
       return response.data;
     } else {
       throw new Error('Failed to fetch countries');
@@ -31,4 +30,21 @@ const fetchCities = async (country_id) => {
   }
 };
 
-export { fetchCities, fetchCountries };
+
+
+const fetchCities = async (county_iso2,state_iso2) => {
+  try {
+    const response = await cityapi.get("/"+county_iso2 +"/states/" + state_iso2 +"/cities/");
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error('Failed to fetch countries');
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+
+export {fetchCities,fetchStates, fetchCountries };

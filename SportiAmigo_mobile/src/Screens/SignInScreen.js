@@ -6,6 +6,7 @@ import { Input, Button, Text, Icon } from '@ui-kitten/components';
 import { theme } from '../themes';
 import { useDispatch } from 'react-redux'
 import { loginSuccess } from '../features/userFeature/authSlice'
+import { StyleSheet } from "react-native";
 
 function SignInScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -70,12 +71,12 @@ function SignInScreen({ navigation }) {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', padding: 16, backgroundColor: theme.colors.background }}>
+    <View style={styles.container}>
     <Input
       placeholder="Email"
       onChangeText={setEmail}
       value={email}
-      style={{ marginBottom: 16 }}
+      style={styles.input}
       keyboardType="email-address"
     />
     <Input
@@ -83,47 +84,73 @@ function SignInScreen({ navigation }) {
       onChangeText={setPassword}
       value={password}
       secureTextEntry
-      style={{ marginBottom: 16 }}
+      style={styles.input}
     />
-    <Button
-      title="Sign in"
-      onPress={signInAsync}
-      style={{ backgroundColor: theme.colors.button, borderColor: theme.colors.button, marginBottom: 16 }}
-    >
+    <Button title="Sign in" onPress={signInAsync} style={styles.button}>
       Sign in
     </Button>
 
-    <Text category="s1" style={{ textAlign: 'center', marginBottom: 16 }}>
+    <Text category="s1" style={styles.forgotPassword}>
       Forgot your password?{' '}
       <Text
-        style={{ color: theme.colors.primary }}
+        style={styles.resetLink}
         onPress={() => {
-          // Add your navigation logic to the password reset screen
           navigation.navigate('PasswordReset');
         }}
       >
-        Reset it 
-        {/* <Icon name={'arrow-ios-forward-outline'} /> */}
+        Reset it
       </Text>
     </Text>
 
     <Button
       title="Register"
       onPress={() => navigation.navigate('RegisterStep1')}
-      style={{ backgroundColor: theme.colors.primary, borderColor: theme.colors.primary }}
-      icon={(props) => <Icon {...props} name= 'person-add-outline'/>}
+      style={styles.registerButton}
+      icon={(props) => <Icon {...props} name="person-add-outline" />}
     >
       Register
     </Button>
 
-
     {/* Testing purposes only */}
-    <Button onPress={() => navigation.navigate('RegisterStep2')} style={{ backgroundColor: theme.colors.button, borderColor: theme.colors.button, marginBottom: 16 }}/>
-    <Button onPress={() => navigation.navigate('RegisterStep3')} style={{ backgroundColor: theme.colors.button, borderColor: theme.colors.button, marginBottom: 16 }}/>
+    <Button onPress={() => navigation.navigate('RegisterStep2')} style={styles.testButton} />
+    <Button onPress={() => navigation.navigate('RegisterStep3')} style={styles.testButton} />
   </View>
   );
 }
 
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: theme.spacing.medium,
+    backgroundColor: theme.colors.background,
+  },
+  input: {
+    marginBottom: theme.spacing.medium,
+    ...theme.input,
+  },
+  button: {
+    marginBottom: theme.spacing.medium,
+  },
+  forgotPassword: {
+    textAlign: 'center',
+    marginBottom: theme.spacing.medium,
+    ...theme.typography.subtitle,
+  },
+  resetLink: {
+    color: theme.colors.primary,
+  },
+  registerButton: {
+    backgroundColor: theme.colors.primary,
+    borderColor: theme.colors.primary,
+  },
+  testButton: {
+    backgroundColor: theme.colors.button,
+    borderColor: theme.colors.button,
+    marginBottom: theme.spacing.medium,
+  },
+});
 
 
 export default SignInScreen;
