@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, Button, Input, Icon, Layout, Select, SelectItem } from '@ui-kitten/components';
+import { Text, Button, Input, Layout } from '@ui-kitten/components';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import * as Location from 'expo-location';
-import { Picker } from '@react-native-picker/picker';
-import { fetchCities, fetchCountries } from '../../../utils/GeoHelperFunc';
 import { theme } from '../../themes';
-import CustomSelect from '../../Components/CustomSelect';
 import CustomAutoComplete from '../../Components/CustomAutocomplete';
-import LoadingPage from '../LoadingScreen';
+// import LoadingPage from '../LoadingScreen';
 import DottedProgress from '../../Components/DottedProgress ';
 
 const RegisterStep4 = ({ navigation }) => {
@@ -112,14 +109,18 @@ const RegisterStep4 = ({ navigation }) => {
       neighborhood,
     });
   };
- return loading ? <LoadingPage /> : (    <Layout style={styles.container}>
+ return loading ? 
+  ( <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+  <Text>hiiiiiiiiiiiiiiii</Text>
+  <Text>Loading...</Text>
+</View>)
+  : (    <Layout style={styles.container}>
   {/* <Icon
     name="map"
     fill="#FF6666"
     style={styles.icon}
   /> */}
 
-  <DottedProgress totalSteps={4} currentStep={4} />
 
   <Text category="h4" style={styles.title}>
     Location

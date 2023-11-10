@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Button, Input, Icon, Layout } from '@ui-kitten/components';
 import DottedProgress from '../../Components/DottedProgress ';
+import { theme } from '../../themes';
 
 const RegisterStep2 = ({ navigation, route }) => {
   const [phone, setPhone] = useState('');
@@ -10,7 +11,6 @@ const RegisterStep2 = ({ navigation, route }) => {
   const [favoriteSports, setFavoriteSports] = useState('');
 
   // get the total number of steps from the route params
-  const { totalSteps } = route.params;
   
   
 
@@ -29,7 +29,7 @@ const RegisterStep2 = ({ navigation, route }) => {
         style={styles.icon}
       /> */}
 
-      <DottedProgress totalSteps={totalSteps} currentStep={2} />
+      <DottedProgress totalSteps={4} currentStep={2} />
 
       <Text category="h4" style={styles.title}>
         Personal Info
@@ -72,7 +72,7 @@ const RegisterStep2 = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    padding: theme.spacing.medium,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -81,14 +81,14 @@ const styles = StyleSheet.create({
     height: 80,
   },
   title: {
-    marginBottom: 16,
+    marginBottom:  theme.spacing.small,
   },
   input: {
-    marginBottom: 16,
+    marginBottom: theme.spacing.medium,
   },
   button: {
-    marginTop: 16,
-    backgroundColor: '#FF6666',
+    marginTop: theme.spacing.medium,
+    backgroundColor: theme.colors.button,
   },
 });
 

@@ -83,9 +83,9 @@ const AppDrawerNavigator = () => {
   return (
     <NavigationContainer theme={customTheme} independent={true}>
       <Drawer.Navigator
-        initialRouteName="UserDetails"
+        initialRouteName="Home"
         drawerContent={(props) => <CustomDrawerContent {...props} />}
-        drawerContentOptions={{
+       screenOptions={{
           activeTintColor: "#FF6666", // Your active item color
           inactiveTintColor: "#333333", // Your inactive item color
           activeBackgroundColor: "#FFAA99", // Your active background color
@@ -99,12 +99,12 @@ const AppDrawerNavigator = () => {
       <Drawer.Screen
             name="Home"
             component={HomeScreen}
-            options={{ title: "Home" }}
+            options={{ title: "Home" , }}
             />
         <Drawer.Screen
           name="UserDetails"
           component={UserDetailsScreen}
-          options={{ title: "User Details" }}
+          options={{ title: "User Details", headerShown: false}}
         />
         <Drawer.Screen
           name="Friends"

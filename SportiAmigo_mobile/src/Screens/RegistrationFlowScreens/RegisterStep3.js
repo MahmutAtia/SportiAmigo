@@ -9,7 +9,6 @@ import {
   Select,
   SelectItem,
 } from "@ui-kitten/components";
-import { EvaIconsPack } from "@ui-kitten/eva-icons";
 
 import {
   fetchCities,
@@ -18,8 +17,10 @@ import {
 } from "../../../utils/GeoHelperFunc";
 import { theme } from "../../themes";
 import CustomAutoComplete from "../../Components/CustomAutocomplete";
-import LoadingPage from "../LoadingScreen";
+// import LoadingPage from "../LoadingScreen";
 import DottedProgress from "../../Components/DottedProgress ";
+import LoadingScreen1 from "../LoadingScreens/LoadingScreen1";
+import LottieAnimation from "../LoadingScreens/LoadingScreen1";
 
 const RegisterStep3 = ({navigation}) => {
   const [loading, setLoading] = useState(true); // State to track loading state
@@ -38,8 +39,7 @@ const RegisterStep3 = ({navigation}) => {
     try {
       const statesData = await fetchStates(item.iso2);
       setStates(statesData);
-      console.log(statesData);
-    } catch (error) {
+      } catch (error) {
       console.error("Error fetching cities:", error);
     }
   };
@@ -84,7 +84,8 @@ const RegisterStep3 = ({navigation}) => {
   };
 
   return loading ? (
-    <LoadingPage />
+   
+   <LottieAnimation animationSource={require('../../../assets/1.json')} />
   ) : (
     <Layout style={styles.container}>
     {/* <EvaIconsPack /> */}

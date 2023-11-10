@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createNativeStackNavigator  } from "@react-navigation/native-stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // Screens
 import SignInScreen from "./Screens/SignInScreen";
@@ -17,6 +17,7 @@ import AppDrawerNavigator from "./Layouts/HomeLayout";
 // Redux
 import { useSelector, useDispatch } from 'react-redux'
 import { loginFailure, loginSuccess, logout, restoreToken } from './features/userFeature/authSlice'
+import RegisterStep4 from "./Screens/RegistrationFlowScreens/RegisterStep4";
  
 
 
@@ -66,7 +67,15 @@ function Index() {
     
       <NavigationContainer>
 
-          <Stack.Navigator>
+          <Stack.Navigator
+      screenOptions={{
+        gestureDirection: "horizontal-inverted",
+        animation:'slide_from_right',
+        // presentation: 'modal',
+        //       animationTypeForReplace: 'push',
+      }}
+          
+          >
 
             {!state.userToken  ? (
               <>
@@ -81,6 +90,7 @@ function Index() {
         <Stack.Screen name="RegisterStep1" component={RegisterStep1}  options={{ headerShown: false }} />
         <Stack.Screen name="RegisterStep2" component={RegisterStep2}   options={{ headerShown: false }}/>
         <Stack.Screen name="RegisterStep3" component={RegisterStep3}  options={{ headerShown: false }}/>
+        <Stack.Screen name="RegisterStep4" component={RegisterStep4}  options={{ headerShown: false }}/>
         </>) : (
           <>
           <Stack.Screen name="AppDrawerNavigator" component={AppDrawerNavigator} options={{ headerShown: false }}/>

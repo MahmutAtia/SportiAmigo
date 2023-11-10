@@ -112,8 +112,8 @@ function SignInScreen({ navigation }) {
     </Button>
 
     {/* Testing purposes only */}
-    <Button onPress={() => navigation.navigate('RegisterStep2')} style={styles.testButton} />
     <Button onPress={() => navigation.navigate('RegisterStep3')} style={styles.testButton} />
+    <Button onPress={() => navigation.navigate('RegisterStep4')} style={styles.testButton} />
   </View>
   );
 }

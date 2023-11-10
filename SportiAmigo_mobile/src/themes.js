@@ -4,7 +4,7 @@ export const theme = {
   colors: {
     primary: '#3498db',      // Blue color for primary
     secondary: '#2980b9',    // Darker blue color for secondary
-    background: '#ecf0f1',   // Light background color
+    background:  'white',   // Light background color
     text: '#2c3e50',         // Dark text color
     button: '#3498db',       // Blue button color
     buttonText: '#FFFFFF',    // White button text color
