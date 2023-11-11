@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useContext, useState } from "react";
 import axios from "../axiosConfig"; // Import the Axios instance you created
 import { Input, Button, Text, Icon , Layout} from '@ui-kitten/components';
+import { theme } from '../themes';
 import { useDispatch } from 'react-redux'
 import { loginSuccess } from '../features/userFeature/authSlice'
 import { StyleSheet } from "react-native";
@@ -99,7 +100,7 @@ function SignInScreen({ navigation }) {
       secureTextEntry
       style={styles.input}
     />
-    <Button title="Sign in" onPress={signInAsync} style={styles.button}>
+    <Button category="secondry" title="Sign in" onPress={signInAsync} style={styles.button}>
       Sign in
     </Button>
 
@@ -125,8 +126,8 @@ function SignInScreen({ navigation }) {
     </Button>
 
     {/* Testing purposes only */}
-    <Button onPress={() => navigation.navigate('RegisterStep3')} style={styles.testButton} />
-    <Button onPress={() => navigation.navigate('RegisterStep4')} style={styles.testButton} />
+    {/* <Button onPress={() => navigation.navigate('RegisterStep3')} style={styles.testButton} />
+    <Button onPress={() => navigation.navigate('RegisterStep4')} style={styles.testButton} /> */}
   </Layout>
   );
 }
@@ -137,14 +138,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: theme.spacing.medium,
-    backgroundColor: theme.colors.background,
+    // backgroundColor: theme.colors.background,
   },
   input: {
     marginBottom: theme.spacing.medium,
     ...theme.input,
+    
+
   },
   button: {
     marginBottom: theme.spacing.medium,
+    ...theme.button,
   },
   forgotPassword: {
     textAlign: 'center',
@@ -157,6 +161,7 @@ const styles = StyleSheet.create({
   registerButton: {
     backgroundColor: theme.colors.primary,
     borderColor: theme.colors.primary,
+    ...theme.button,
   },
   testButton: {
     backgroundColor: theme.colors.button,

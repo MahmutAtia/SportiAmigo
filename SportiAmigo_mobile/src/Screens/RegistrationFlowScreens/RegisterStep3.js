@@ -89,7 +89,7 @@ const RegisterStep3 = ({navigation}) => {
   ) : (
     <Layout style={styles.container}>
     {/* <EvaIconsPack /> */}
-    <DottedProgress totalSteps={4} currentStep={3} />
+    <DottedProgress totalSteps={5} currentStep={3} />
 
     <Text category="h4" style={styles.title}>
       Location

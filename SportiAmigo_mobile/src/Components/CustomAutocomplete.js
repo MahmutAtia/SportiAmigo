@@ -49,15 +49,18 @@ function CustomAutocomplete({data,onSelect,disabled, style, placeholder}) {
         <View style={{flexDirection:"row"}}>
         <Autocomplete
 
-        listStyle = {{
-            borderWidth: 0,
-            borderColor: '#fff',
-            backgroundColor:"black",
-        }}
         renderResultList={(props) => {
             return (<List {...props} />)    
         }}
 
+        listStyle = {{
+            borderWidth: 0,
+            borderColor: '#fff',
+            // backgroundColor:"black",
+        }}
+        
+
+      
         listContainerStyle	= {{
         borderWidth: 0,
         borderColor: '#fff',
@@ -82,6 +85,9 @@ function CustomAutocomplete({data,onSelect,disabled, style, placeholder}) {
           onChangeText={setQuery}
           placeholder={placeholder}
           flatListProps={{
+            renderResultList: (props) => (
+              <List {...props} />
+            ),
             height: 150,
             keyboardShouldPersistTaps: 'handled',
             keyExtractor: (ele) =>  ele.id,
@@ -103,13 +109,13 @@ function CustomAutocomplete({data,onSelect,disabled, style, placeholder}) {
 
 const styles = StyleSheet.create({
     container: {
-      backgroundColor: 'white', // Set your background color
+      // backgroundColor: 'white', // Set your background color
       paddingTop: Platform.OS === 'android' ? 50 : 0,
       marginTop: Platform.OS === 'android' ? 25 : 0,
       flexDirection: 'row',
     },
     autocomplete: {
-      backgroundColor: 'white', // Set background color for the autocomplete component
+      // backgroundColor: 'white', // Set background color for the autocomplete component
       borderBottomColor: '#000000', // Add bottom border color
       borderBottomWidth: 1, // Add a bottom border
       paddingVertical: 8, // Add vertical padding
@@ -129,10 +135,10 @@ const styles = StyleSheet.create({
       borderBottomColor: '#eeeeee',
     },
     suggestionText: {
-      color: '#000000', // Set text color
+      // color: '#000000', // Set text color
     },
     placeholderText: {
-      color: '#999999', // Set placeholder text color
+      // color: '#999999', // Set placeholder text color
     },
     loadingText: {
       textAlign: 'center', // Center loading text

@@ -46,9 +46,16 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     # Include other fields as needed
 
     # Location Fields
+    coutry = models.CharField(max_length=100, blank=True, null=True)
+    state = models.CharField(max_length=100, blank=True, null=True)
+    city = models.CharField(max_length=100, blank=True, null=True)  
     location_latitude = models.FloatField(blank=True, null=True)
     location_longitude = models.FloatField(blank=True, null=True)
     location_address = models.CharField(max_length=200, blank=True, null=True)
+
+
+    # user adminsitrator
+    
 
     objects = CustomUserManager()
 
@@ -57,6 +64,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+    
+    def is_facility_admin(self):
+        return hasattr(self, 'facility_administrator')
+        
 
 
 

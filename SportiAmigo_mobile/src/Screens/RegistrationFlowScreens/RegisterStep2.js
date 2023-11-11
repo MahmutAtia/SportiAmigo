@@ -17,11 +17,11 @@ const RegisterStep2 = ({ navigation, route }) => {
   const [favoriteSports, setFavoriteSports] = useState('');
 
 
-  useEffect(() => {
-    navigation.addListener('beforeRemove', (e) => {
+  // useEffect(() => {
+  //   navigation.addListener('beforeRemove', (e) => {
 
-      // Prevent default behavior of leaving the screen
-      e.preventDefault()}), [navigation]  });
+  //     // Prevent default behavior of leaving the screen
+  //     e.preventDefault()}), [navigation]  });
   
 
 
@@ -30,7 +30,7 @@ const RegisterStep2 = ({ navigation, route }) => {
     // Save the user's phone, date of birth, gender, and favorite sports
     const response = await axiosInstance.put('/api/userauth/profile/', {
       phone_number: phone,
-      date_of_birth: dateOfBirth,
+      date_of_birth: dateOfBirth.toISOString().split('T')[0],
       gender,
       favorite_sports: favoriteSports,
     });
@@ -77,7 +77,7 @@ const RegisterStep2 = ({ navigation, route }) => {
         style={styles.icon}
       /> */}
 
-      <DottedProgress totalSteps={4} currentStep={2} />
+      <DottedProgress totalSteps={5} currentStep={2} />
 
       <Text category="h4" style={styles.title}>
         Personal Info
@@ -101,13 +101,13 @@ const RegisterStep2 = ({ navigation, route }) => {
         style={styles.input}
       />
 
-      <Input
+      {/* <Input
         label="Date of Birth"
         placeholder="Enter your date of birth"
         value={dateOfBirth}
         onChangeText={setDateOfBirth}
         style={styles.input}
-      />
+      /> */}
       <Input
         label="Gender"
         placeholder="Enter your gender"

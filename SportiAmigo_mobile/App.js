@@ -5,15 +5,11 @@ import store from './src/app/store';
 import Index from './src/Index';
 import * as eva from '@eva-design/eva';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
+
 import { ThemeContext } from './Contexts/theme-context';
 
-
-import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
-import LoadingScreen1 from './src/Screens/LoadingScreens/LoadingScreen1';
-import LottieAnimation from './src/Screens/LoadingScreens/LoadingScreen1';
-
 const App = () => {
-    const animationSource = require('./assets/1.json'); // Adjust the file name
 
     const [theme, setTheme] = React.useState('light');
 

@@ -58,9 +58,9 @@ const styles = StyleSheet.create({
       alignItems: 'center',
     },
     infoText: {
-      fontSize: 16,
-      color: theme.colors.secondary,
-      fontWeight: 'normal',
+      // fontSize: 16,
+      // color: theme.colors.secondary,
+      // fontWeight: 'normal',
     },
     editIcon: {
       fontSize: 24,
