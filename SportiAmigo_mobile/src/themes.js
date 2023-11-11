@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { DefaultTheme } from '@react-navigation/native';
+
 export const theme = {
   colors: {
     primary: '#3498db',      // Blue color for primary

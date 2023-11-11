@@ -39,8 +39,9 @@ function Index() {
       const userInfo = await AsyncStorage.getItem("userInfo");
       console.log("userToken", userToken);
       console.log("userInfo", userInfo);
-      if (userToken) {
+      if (userInfo) {   // if user info exist in local storage because the token i use it regstration for updating data
         dispatch(loginSuccess({ userToken, userInfo: JSON.parse(userInfo) }))
+        // AsyncStorage.setItem("userInfo", userInfo);
       }
       else {
         dispatch(loginFailure())
@@ -77,7 +78,7 @@ function Index() {
           
           >
 
-            {!state.userToken  ? (
+            {state.isSignout ? ( // if user info not exist in the state because the token i use it regstration for updating data
               <>
         <Stack.Screen name="SignIn" component={SignInScreen}
         options={{

@@ -1,26 +1,74 @@
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Text, Button, Input, Icon, Layout } from '@ui-kitten/components';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet } from 'react-native';
+import { Text, Button, Input, Icon, Layout , Datepicker} from '@ui-kitten/components';
 import DottedProgress from '../../Components/DottedProgress ';
 import { theme } from '../../themes';
+import axios from 'axios';
+import axiosInstance from '../../axiosConfig';
 
 const RegisterStep2 = ({ navigation, route }) => {
+
+
+
+     
   const [phone, setPhone] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState(new Date());
   const [gender, setGender] = useState('');
   const [favoriteSports, setFavoriteSports] = useState('');
 
-  // get the total number of steps from the route params
+
+  useEffect(() => {
+    navigation.addListener('beforeRemove', (e) => {
+
+      // Prevent default behavior of leaving the screen
+      e.preventDefault()}), [navigation]  });
   
-  
 
 
 
-  const handleNext = () => {
+  const handleNext = async() => {
     // Save the user's phone, date of birth, gender, and favorite sports
-    navigation.navigate('RegisterStep3');
+    const response = await axiosInstance.put('/api/userauth/profile/', {
+      phone_number: phone,
+      date_of_birth: dateOfBirth,
+      gender,
+      favorite_sports: favoriteSports,
+    });
+
+    
+    console.log(response.status);
+    console.log(response.data);
+    try {
+      if (response.status === 200) {
+        // Registration was successful
+
+
+
+        navigation.navigate('RegisterStep3'); // Navigate to the next registration step
+      }  else {
+
+        // Handle other error cases
+        alert(
+          'An error occurred while authenticating. Please try again later.'
+        );
+      }
+    } catch (error) { 
+      // Handle network or other errors 
+      // Handle network errors and other unexpected issues
+      console.error(error);
+      alert( 'An error occurred while authenticating. Please try again later.' );
+    }
+
+
+    // Navigate to the next step
   };
 
+  const handleSkip = () => {
+    // Skip the step and navigate to the next step
+    navigation.navigate('RegisterStep3');
+  }
+
+  console.log(dateOfBirth); 
   return (
     <Layout style={styles.container}>
       {/* <Icon
@@ -41,6 +89,18 @@ const RegisterStep2 = ({ navigation, route }) => {
         onChangeText={setPhone}
         style={styles.input}
       />
+
+
+<Datepicker
+        date={dateOfBirth}
+        onSelect={(date)=>setDateOfBirth(date)}
+        placeholder="Date of Birth"
+        min={new Date('1900-01-01')}
+        max={new Date()} // Set max date to the current date
+        // accessoryRight={(props) => <Icon {...props} name="calendar-outline" />}
+        style={styles.input}
+      />
+
       <Input
         label="Date of Birth"
         placeholder="Enter your date of birth"
@@ -63,8 +123,12 @@ const RegisterStep2 = ({ navigation, route }) => {
         style={styles.input}
       />
       <Button onPress={handleNext} style={styles.button}>
-        Complete Registration
+        Next
       </Button>
+      <Button style={styles.button} onPress={handleSkip}>
+        Skip 
+      </Button>
+
     </Layout>
   );
 };
@@ -85,10 +149,12 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: theme.spacing.medium,
+    width: '100%',
   },
   button: {
     marginTop: theme.spacing.medium,
     backgroundColor: theme.colors.button,
+    width: '100%',
   },
 });
 

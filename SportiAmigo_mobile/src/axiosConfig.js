@@ -1,39 +1,40 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import store from "./app/store";
+
+const get_token = () => {
+  const { auth } = store.getState();
+  console.log(auth.userToken);
+  return auth.userToken;
+};
 
 const axiosInstance = axios.create({
-  baseURL: 'https://371f-85-110-36-173.ngrok-free.app', // Replace with your API base URL
+  baseURL: "https://4b1f-78-174-214-226.ngrok-free.app", // Replace with your API base URL
   timeout: 5000, // Set a reasonable timeout
   headers: {
-    'Content-Type': 'application/json',
-    // 'Authorization':  AsyncStorage.getItem('userToken') ? `Token ${AsyncStorage.getItem('userToken')}` : null,
+    "Content-Type": "application/json",
   },
-
-
 });
 
-const setAuthToken = async()=> {
-  try {
-    const token = await AsyncStorage.getItem('userToken'); // Replace with your key for the token in AsyncStorage
-    if (token) {
-      axiosInstance.defaults.headers.common['Authorization'] = `Token ${token}`;
-    } else {
-      delete axiosInstance.defaults.headers.common['Authorization']; // Clear the token if not found
-    }
-  } catch (error) {
-    console.error('Error setting the authentication token:', error);
+// Add a request interceptor
+axiosInstance.interceptors.request.use((config) => {
+  // Get the token synchronously and set it in the headers
+  const token = get_token();
+  console.log(token);
+  if (token) {
+    config.headers.Authorization = `Token ${token}`;
   }
-}
-
-
-const cityapi = axios.create({
-  baseURL: 'https://api.countrystatecity.in/v1/countries', // Replace with your API base URL
-  timeout: 5000, // Set a reasonable timeout
-  headers: {
-    'X-CSCAPI-KEY': 'ZklYd0oxZEVVRGtlRzNDMEtSYVVZcjJpUGVuc1htVnBNc25qTXhLUg=='
-  }
-  
+  return config;
 });
 
 export default axiosInstance;
-export {cityapi, setAuthToken};
+
+const cityapi = axios.create({
+  baseURL: "https://api.countrystatecity.in/v1/countries", // Replace with your API base URL
+  timeout: 5000, // Set a reasonable timeout
+  headers: {
+    "X-CSCAPI-KEY": "ZklYd0oxZEVVRGtlRzNDMEtSYVVZcjJpUGVuc1htVnBNc25qTXhLUg==",
+  },
+});
+
+export { cityapi };

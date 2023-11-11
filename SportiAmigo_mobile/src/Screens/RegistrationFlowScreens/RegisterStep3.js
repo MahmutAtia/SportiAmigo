@@ -153,7 +153,9 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: theme.spacing.medium,
+    // width: "80%",
     // ...theme.button,
+    
   },
 });
 

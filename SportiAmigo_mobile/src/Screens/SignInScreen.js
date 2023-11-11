@@ -1,17 +1,27 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useState } from "react";
-import { View} from "react-native";
+import React, { useContext, useState } from "react";
 import axios from "../axiosConfig"; // Import the Axios instance you created
-import { Input, Button, Text, Icon } from '@ui-kitten/components';
-import { theme } from '../themes';
+import { Input, Button, Text, Icon , Layout} from '@ui-kitten/components';
 import { useDispatch } from 'react-redux'
 import { loginSuccess } from '../features/userFeature/authSlice'
 import { StyleSheet } from "react-native";
+import { ThemeContext } from "../../Contexts/theme-context";
 
 function SignInScreen({ navigation }) {
+
+  // State variables to store user input
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+
+  // Redux 
   const dispatch = useDispatch()
+
+
+  // 
+  const themeContext  = useContext(ThemeContext);
+
+
 
   const signInAsync = async () => {
     // Basic validation
@@ -71,7 +81,10 @@ function SignInScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <Layout style={styles.container}>
+    <Button onPress={
+      ()=> themeContext.toggleTheme()
+    }>TOGGLE THEME</Button>
     <Input
       placeholder="Email"
       onChangeText={setEmail}
@@ -114,7 +127,7 @@ function SignInScreen({ navigation }) {
     {/* Testing purposes only */}
     <Button onPress={() => navigation.navigate('RegisterStep3')} style={styles.testButton} />
     <Button onPress={() => navigation.navigate('RegisterStep4')} style={styles.testButton} />
-  </View>
+  </Layout>
   );
 }
 

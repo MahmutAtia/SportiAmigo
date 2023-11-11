@@ -15,14 +15,22 @@ User = get_user_model()
 # Registration view
 @api_view(['POST'])
 def registration_view(request):
-    serializer = RegistrationSerializer(data=request.data)
+
+    data = request.data
+    print(data)
+    data["email"] = data["email"].lower()
+    data.pop('password2')
+
+    serializer = RegistrationSerializer(data=data)
     if serializer.is_valid():
         serializer.save() # we create a new user
         user = User.objects.get(email=request.data['email'])
         user.set_password(request.data['password'])
         user.is_active = True #make the user active
         user.save()
-        return Response({'msg': "User Created", 'user': serializer.data}, status=status.HTTP_201_CREATED)
+
+        token, created = Token.objects.get_or_create(user=user) # if the user want to contiuue to update his profile not skip it
+        return Response({'msg': "User Created", 'user': serializer.data, 'userToken': token.key}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_200_OK)
 
 
@@ -49,8 +57,11 @@ class UserProfileView(APIView):
         return Response(user_data, status=status.HTTP_200_OK)
 
     def put(self, request):
+        request.data.pop("date_of_birth")
+        request.data.pop("favorite_sports")
         serializer = UserSerializer(request.user, data=request.data, partial=True)
-
+       
+        print(serializer.initial_data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)

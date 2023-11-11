@@ -16,6 +16,8 @@ import NewFacilityScreen from "../Screens/DrawerScreens/NewFacilityScreen";
 // Import drawer theme and styles
 import { drawerStyles as styles, drawerTheme as customTheme } from "../themes";
 import HomeScreen from "../Screens/HomeScreen";
+import MyAccount from "../Screens/DrawerScreens/MyAccountScreens/MyAccount";
+import MyAccountStack from "./MyAccountStack";
 
 const Drawer = createDrawerNavigator();
 
@@ -36,9 +38,9 @@ const CustomDrawerContent = (props) => {
         />
 
         <DrawerItem
-          label="User Details"
+          label="My Account"
           icon={({ color, size }) => <FontAwesome name="user" size={size} color={color} />}
-          onPress={() => props.navigation.navigate('UserDetails')}
+          onPress={() => props.navigation.navigate('MyAccount')}
         />
         <DrawerItem
           label="Friends"
@@ -102,9 +104,9 @@ const AppDrawerNavigator = () => {
             options={{ title: "Home" , }}
             />
         <Drawer.Screen
-          name="UserDetails"
-          component={UserDetailsScreen}
-          options={{ title: "User Details", headerShown: false}}
+          name="MyAccount"
+          component={MyAccountStack}
+          options={{ title: "My Account", headerShown: false}}
         />
         <Drawer.Screen
           name="Friends"
