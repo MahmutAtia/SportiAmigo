@@ -6,6 +6,7 @@ import Index from './src/Index';
 import * as eva from '@eva-design/eva';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
+import {theme as customeTheme} from './src/themes';
 
 import { ThemeContext } from './Contexts/theme-context';
 
@@ -22,7 +23,7 @@ const App = () => {
         <Provider store={store}>
         <IconRegistry icons={EvaIconsPack}/>
         <ThemeContext.Provider value={{ theme, toggleTheme }}>
-        <ApplicationProvider {...eva} theme={eva[theme]}>
+        <ApplicationProvider {...eva} theme={{...eva[theme],...customeTheme}}>
         <Index />
         </ApplicationProvider>
         </ThemeContext.Provider>

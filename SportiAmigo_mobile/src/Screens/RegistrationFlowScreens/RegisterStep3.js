@@ -8,6 +8,7 @@ import {
   Layout,
   Select,
   SelectItem,
+  useTheme,
 } from "@ui-kitten/components";
 
 import {
@@ -19,7 +20,6 @@ import { theme } from "../../themes";
 import CustomAutoComplete from "../../Components/CustomAutocomplete";
 // import LoadingPage from "../LoadingScreen";
 import DottedProgress from "../../Components/DottedProgress ";
-import LoadingScreen1 from "../LoadingScreens/LoadingScreen1";
 import LottieAnimation from "../LoadingScreens/LoadingScreen1";
 
 const RegisterStep3 = ({navigation}) => {
@@ -63,6 +63,8 @@ const RegisterStep3 = ({navigation}) => {
   };
 
   useEffect(() => {
+
+
     fetchCountries()
       .then((data) => {
         setCountries(data);
@@ -82,6 +84,7 @@ const RegisterStep3 = ({navigation}) => {
       city,
     });
   };
+
 
   return loading ? (
    
@@ -153,8 +156,8 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: theme.spacing.medium,
-    // width: "80%",
-    // ...theme.button,
+    width: "90%",
+    ...theme.button,
     
   },
 });

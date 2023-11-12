@@ -7,6 +7,7 @@ import { theme } from "../../themes";
 import DottedProgress from "../../Components/DottedProgress ";
 import axios from "axios";
 import axiosInstance from "../../axiosConfig";
+import LottieAnimation, { LoadingAnimation } from "../LoadingScreens/LoadingScreen1";
 
 const RegisterStep4 = ({ navigation, route }) => {
 
@@ -123,8 +124,11 @@ const RegisterStep4 = ({ navigation, route }) => {
     navigation.navigate("RegisterStep5");
    
   };
+  console.log(address);
+  console.log(loading);
+  console.log(location)
 
-  return (
+  return loading ? <LoadingAnimation/>: (
     <Layout style={styles.container}>
 
 <DottedProgress totalSteps={5} currentStep={4} />
@@ -167,6 +171,9 @@ const RegisterStep4 = ({ navigation, route }) => {
           />
         )}
       </MapView>
+      <Button onPress={()=>navigation.goBack()} style={styles.button}>
+      Back
+      </Button>
       <Button onPress={handleNext} style={styles.button}>
         Next
       </Button>
@@ -205,6 +212,7 @@ const themedStyles = StyleService.create({
   button: {
     borderRadius: 8,
     width: "100%",
+    marginBottom: theme.spacing.medium,
   },
 });
 

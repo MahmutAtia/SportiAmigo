@@ -10,12 +10,17 @@ import {
 import DottedProgress from "../../Components/DottedProgress ";
 import { theme } from "../../themes";
 import axiosInstance from "../../axiosConfig";
+import { useDispatch } from "react-redux";
+import { logout } from "../../features/userFeature/authSlice";
 
 const RegisterStep5 = ({ navigation }) => {
   const theme = useTheme();
   const [isFacilityAdmin, setIsFacilityAdmin] = useState(false);
   const [role, setRole] = useState("");
   const [responsibilities, setResponsibilities] = useState("");
+
+
+ const  dispatch  = useDispatch()
 
   const handleFinishRegistration = async () => {
     if (isFacilityAdmin) {
@@ -48,7 +53,8 @@ const RegisterStep5 = ({ navigation }) => {
       console.log("Not a facility admin");
     //   console.log(navigation);
 
-   
+
+//    dispatch(logout())
     navigation.reset({
         index: 0,
         routes: [{ name: 'SignIn' }],

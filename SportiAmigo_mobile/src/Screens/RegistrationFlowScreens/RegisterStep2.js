@@ -5,6 +5,8 @@ import DottedProgress from '../../Components/DottedProgress ';
 import { theme } from '../../themes';
 import axios from 'axios';
 import axiosInstance from '../../axiosConfig';
+import { BackHandler } from 'react-native';
+
 
 const RegisterStep2 = ({ navigation, route }) => {
 
@@ -14,7 +16,6 @@ const RegisterStep2 = ({ navigation, route }) => {
   const [phone, setPhone] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState(new Date());
   const [gender, setGender] = useState('');
-  const [favoriteSports, setFavoriteSports] = useState('');
 
 
   // useEffect(() => {
@@ -22,6 +23,21 @@ const RegisterStep2 = ({ navigation, route }) => {
 
   //     // Prevent default behavior of leaving the screen
   //     e.preventDefault()}), [navigation]  });
+
+
+  useEffect(() => {
+        const backAction = () => {
+          // Do nothing when the back button is pressed
+          return true;
+        };
+    
+        const backHandler = BackHandler.addEventListener(
+          'hardwareBackPress',
+          backAction
+        );
+    
+        return () => backHandler.remove();
+      }, []);
   
 
 
@@ -32,7 +48,6 @@ const RegisterStep2 = ({ navigation, route }) => {
       phone_number: phone,
       date_of_birth: dateOfBirth.toISOString().split('T')[0],
       gender,
-      favorite_sports: favoriteSports,
     });
 
     
@@ -115,13 +130,13 @@ const RegisterStep2 = ({ navigation, route }) => {
         onChangeText={setGender}
         style={styles.input}
       />
-      <Input
+      {/* <Input
         label="Favorite Sports"
         placeholder="Enter your favorite sports"
         value={favoriteSports}
         onChangeText={setFavoriteSports}
         style={styles.input}
-      />
+      /> */}
       <Button onPress={handleNext} style={styles.button}>
         Next
       </Button>

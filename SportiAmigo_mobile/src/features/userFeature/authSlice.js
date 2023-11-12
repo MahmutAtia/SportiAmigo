@@ -9,6 +9,7 @@ const authSlice = createSlice({
     isSignout: false,
     userToken: null,
     userInfo: {}, // for user object
+    resstritionMode: null,
 
   },
   reducers: {
@@ -26,9 +27,16 @@ const authSlice = createSlice({
     logout: (state) => {
       state.isSignout = true;
       state.userToken = null;
+      state.userInfo = {};
     },
     updateUserInfo: (state, action) => {
       state.userInfo = { ...state.userInfo, ...action.payload };
+    },
+    
+    toRegstriationMode: (state, action) => {
+      state.resstritionMode = true;
+
+      
     },
 
     // to register user details later 

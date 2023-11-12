@@ -20,7 +20,6 @@ function SignInScreen({ navigation }) {
 
 
   // 
-  const themeContext  = useContext(ThemeContext);
 
 
 
@@ -83,9 +82,9 @@ function SignInScreen({ navigation }) {
 
   return (
     <Layout style={styles.container}>
-    <Button onPress={
+    {/* <Button onPress={
       ()=> themeContext.toggleTheme()
-    }>TOGGLE THEME</Button>
+    }>TOGGLE THEME</Button> */}
     <Input
       placeholder="Email"
       onChangeText={setEmail}

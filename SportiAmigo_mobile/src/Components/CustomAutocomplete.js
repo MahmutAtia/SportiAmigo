@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Input,Text,List } from '@ui-kitten/components';
+import { Input,Text,List, Layout, useTheme } from '@ui-kitten/components';
   
 
 // Function to filter countries based on the search query
@@ -16,10 +16,15 @@ const filterData = (data, query) => {
     ele.name.toLowerCase().includes(normalizedQuery)
     );
   };
+
+
+
 function CustomAutocomplete({data,onSelect,disabled, style, placeholder}) {
     console.log(disabled,"disabled")
     console.log(data.length,"data")
-  
+
+
+    const theme = useTheme()
 
   const [query, setQuery] = useState('');
   const isLoading = !data.length;
@@ -46,7 +51,7 @@ function CustomAutocomplete({data,onSelect,disabled, style, placeholder}) {
   };
 
   return (
-        <View style={{flexDirection:"row"}}>
+        <Layout style={{flexDirection:"row"}}>
         <Autocomplete
 
         renderResultList={(props) => {
@@ -56,7 +61,6 @@ function CustomAutocomplete({data,onSelect,disabled, style, placeholder}) {
         listStyle = {{
             borderWidth: 0,
             borderColor: '#fff',
-            // backgroundColor:"black",
         }}
         
 
@@ -71,6 +75,7 @@ function CustomAutocomplete({data,onSelect,disabled, style, placeholder}) {
         inputContainerStyle    = {{
         borderWidth: 0,
         borderColor: '#fff',
+
         }}
        
       
@@ -99,11 +104,14 @@ function CustomAutocomplete({data,onSelect,disabled, style, placeholder}) {
             style: {
                 borderWidth: 0,
                 borderColor: '#fff',
+                backgroundColor:theme['background-basic-color-1'],
+
+
             }
           }}
     
         />
-        </View>
+        </Layout>
   );
 }
 

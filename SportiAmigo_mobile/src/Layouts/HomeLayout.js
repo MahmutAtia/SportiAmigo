@@ -1,6 +1,6 @@
 // Import dependencies
 import React from "react";
-import { View, Text, Image } from "react-native";
+import {  Image } from "react-native";
 import { createDrawerNavigator,DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
@@ -14,21 +14,41 @@ import FacilityDetailsScreen from "../Screens/DrawerScreens/FacilityDetailsScree
 import NewFacilityScreen from "../Screens/DrawerScreens/NewFacilityScreen";
 
 // Import drawer theme and styles
-import { drawerStyles as styles, drawerTheme as customTheme } from "../themes";
 import HomeScreen from "../Screens/HomeScreen";
 import MyAccount from "../Screens/DrawerScreens/MyAccountScreens/MyAccount";
 import MyAccountStack from "./MyAccountStack";
+import { useTheme , Layout, Text} from "@ui-kitten/components";
 
 const Drawer = createDrawerNavigator();
 
 // Define drawer content
 const CustomDrawerContent = (props) => {
+
+    const theme = useTheme()
     return (
       <DrawerContentScrollView {...props}>
-        <View style={styles.drawerHeader}>
-          <Image source={{ uri: 'user_avatar_url' }} style={styles.userAvatar} />
-          <Text style={styles.userName}>User Name</Text>
-        </View>
+        <Layout style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          padding: 16,
+          backgroundColor: theme['color-primary-500'],
+        }}>
+          <Image source={{ uri: 'user_avatar_url' }} style={
+            {
+              width: 48,
+              height: 48,
+              borderRadius: 24,
+              backgroundColor: theme['color-primary-400'],
+            }
+          } />
+          <Text style={
+            {
+              color: theme['color-primary-100'],
+              marginHorizontal: 16,
+              ...theme.typography.subtitle,
+            }
+          }>User Name</Text>
+        </Layout>
   
         {/* First group of items */}
         <DrawerItem
@@ -64,7 +84,7 @@ const CustomDrawerContent = (props) => {
 
 
         {/* Divider with margin */}
-        <View style={{ height: 1, backgroundColor: 'gray', marginHorizontal: 16, marginVertical: 8 }} />
+        <Layout style={{ height: 1, backgroundColor: 'gray', marginHorizontal: 16, marginVertical: 8 }} />
 
         <DrawerItem
           label="Facility Details"
@@ -82,16 +102,18 @@ const CustomDrawerContent = (props) => {
   
 
 const AppDrawerNavigator = () => {
+  const theme = useTheme()
+
   return (
-    <NavigationContainer theme={customTheme} independent={true}>
+    <NavigationContainer  independent={true} >
       <Drawer.Navigator
         initialRouteName="Home"
         drawerContent={(props) => <CustomDrawerContent {...props} />}
        screenOptions={{
-          activeTintColor: "#FF6666", // Your active item color
-          inactiveTintColor: "#333333", // Your inactive item color
-          activeBackgroundColor: "#FFAA99", // Your active background color
-          inactiveBackgroundColor: "#F5F5F5", // Your inactive background color
+          activeTintColor:  theme['color-primary-500'], // Your active color
+          inactiveTintColor : theme['color-primary-500'], // Your inactive color
+          activeBackgroundColor: theme['color-primary-100'], // Your active background color
+          inactiveBackgroundColor: theme['color-primary-100'], // Your inactive background color
           itemStyle: {
             marginVertical: 0,
           },
