@@ -10,6 +10,7 @@ const authSlice = createSlice({
     userToken: null,
     userInfo: {}, // for user object
     resstritionMode: null,
+    facility: null,
 
   },
   reducers: {
@@ -32,6 +33,9 @@ const authSlice = createSlice({
     updateUserInfo: (state, action) => {
       state.userInfo = { ...state.userInfo, ...action.payload };
     },
+    setFacility: (state, action) => {
+      state.facility = action.payload
+    },
     
     toRegstriationMode: (state, action) => {
       state.resstritionMode = true;
@@ -52,5 +56,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { loginSuccess,loginFailure ,logout, restoreToken, updateUserInfo, registerSuccess } = authSlice.actions;
+export const { loginSuccess,loginFailure ,logout, restoreToken, updateUserInfo, registerSuccess , setFacility} = authSlice.actions;
 export default authSlice.reducer;

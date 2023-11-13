@@ -1,12 +1,11 @@
 // Import dependencies
-import React from "react";
+import React, { useEffect } from "react";
 import {  Image } from "react-native";
 import { createDrawerNavigator,DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 
 // Define screens for each section
-import UserDetailsScreen from "../Screens/DrawerScreens/UserDetailsScreen";
 import FriendsScreen from "../Screens/DrawerScreens/FriendsScreen";
 import MessagesScreen from "../Screens/DrawerScreens/MessagesScreen";
 import SportFacilitiesScreen from "../Screens/DrawerScreens/SportFacilitiesScreen";
@@ -15,9 +14,12 @@ import NewFacilityScreen from "../Screens/DrawerScreens/NewFacilityScreen";
 
 // Import drawer theme and styles
 import HomeScreen from "../Screens/HomeScreen";
-import MyAccount from "../Screens/DrawerScreens/MyAccountScreens/MyAccount";
 import MyAccountStack from "./MyAccountStack";
 import { useTheme , Layout, Text} from "@ui-kitten/components";
+import { useDispatch, useSelector } from "react-redux";
+import axiosInstance from "../axiosConfig";
+import { setFacility } from "../features/userFeature/authSlice";
+import { LoadingAnimation } from "../Screens/LoadingScreens/LoadingScreen1";
 
 const Drawer = createDrawerNavigator();
 
@@ -25,6 +27,16 @@ const Drawer = createDrawerNavigator();
 const CustomDrawerContent = (props) => {
 
     const theme = useTheme()
+    const isFacilityAdmin = useSelector(state => state.auth.userInfo.is_facility_admin)
+    const facility = useSelector(state => state.auth.facility)    
+
+
+
+
+
+
+
+
     return (
       <DrawerContentScrollView {...props}>
         <Layout style={{
@@ -86,16 +98,16 @@ const CustomDrawerContent = (props) => {
         {/* Divider with margin */}
         <Layout style={{ height: 1, backgroundColor: 'gray', marginHorizontal: 16, marginVertical: 8 }} />
 
-        <DrawerItem
+    {  facility &&  <DrawerItem
           label="Facility Details"
           icon={({ color, size }) => <FontAwesome name="building" size={size} color="orange" /* Customize the color here */ />}
           onPress={() => props.navigation.navigate('FacilityDetails')}
-        />
-        <DrawerItem
+        />}
+ {    isFacilityAdmin && !facility &&   <DrawerItem
           label="Register New Facility"
           icon={({ color, size }) => <FontAwesome name="plus-square-o" size={size} color="purple" /* Customize the color here */ />}
           onPress={() => props.navigation.navigate('NewFacility')}
-        />
+        />}
       </DrawerContentScrollView>
     );
   };
@@ -104,7 +116,34 @@ const CustomDrawerContent = (props) => {
 const AppDrawerNavigator = () => {
   const theme = useTheme()
 
-  return (
+  const [loading, setLoading] = React.useState(true)
+
+
+
+  // Redux
+  const auth = useSelector(state => state.auth)
+  const dispatch = useDispatch()
+
+
+
+  useEffect(() => {
+    if (auth.userInfo.is_facility_admin){
+      axiosInstance.get('/api/userauth/facility-admin/').then(res => {
+
+        console.log(res.data)
+        const data = res.data
+        if (data.facility)
+        dispatch(setFacility(data.facility))
+        }).catch(err => {
+          console.log(err)
+        })
+
+        setLoading(false)
+    }
+
+  }, [])
+
+  return loading ? <LoadingAnimation/> : (
     <NavigationContainer  independent={true} >
       <Drawer.Navigator
         initialRouteName="Home"

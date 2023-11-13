@@ -40,7 +40,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     gender = models.CharField(max_length=10, blank=True, null=True)
-    address = models.CharField(max_length=200, blank=True, null=True)
+    # address = models.CharField(max_length=200, blank=True, null=True)
     # profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
     favorite_sports = models.ManyToManyField(Sport, blank=True)
     # Include other fields as needed

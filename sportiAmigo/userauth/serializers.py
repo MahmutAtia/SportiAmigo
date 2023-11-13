@@ -1,6 +1,7 @@
 
 from rest_framework import serializers
 from .models import CustomUser, FacilityAdministrator
+from facility.serializers import FacilitySerializer
 
 
 
@@ -19,13 +20,18 @@ class LoginSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ('id', 'email', 'first_name', 'last_name', 'is_active', 'is_staff', 'phone_number', 'date_of_birth', 'gender', 'address',
+        fields = ('id', 'email', 'first_name', 'last_name', 'is_active', 'is_staff', 'phone_number', 'date_of_birth', 'gender',
         # 'profile_picture', 
-         'favorite_sports', 'location_latitude', 'location_longitude', 'location_address')
+         'favorite_sports', 'location_latitude', 'location_longitude', 'location_address',
+            'coutry', 'state', 'city','is_facility_admin'
+         )
         
 
 
 class FacilityAdministratorSerializer(serializers.ModelSerializer):
+
+    facility = FacilitySerializer()
+    
     class Meta:
         model = FacilityAdministrator
         fields = [ 'role', 'facility', 'responsibilities', 'working_hours']

@@ -93,12 +93,12 @@ const RegisterStep4 = ({ navigation, route }) => {
     // Save the user's selected address, location, country, city, and neighborhood
      
     axiosInstance.put("/api/userauth/profile/", {
-      country: country,
-      state: state,
-      city: city,
-      address,
-      latitude: location.latitude,
-      longitude: location.longitude,
+      country: country.name,
+      state: state.name,
+      city: city.name,
+      location_address: address,
+      location_latitude: location.latitude,
+      location_longitude: location.longitude,
     }).then((response) => {
       console.log(response.status);
       console.log(response.data);
@@ -121,7 +121,6 @@ const RegisterStep4 = ({ navigation, route }) => {
     });
 
 
-    navigation.navigate("RegisterStep5");
    
   };
   console.log(address);

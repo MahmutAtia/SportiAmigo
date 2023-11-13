@@ -4,7 +4,10 @@ from .models import Facility, FacilityReservation, FacilityCheckIn
 class FacilitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Facility
-        fields = '__all__'
+        fields =  '__all__'
+
+
+
 
 class FacilityReservationSerializer(serializers.ModelSerializer):
     class Meta:

@@ -8,9 +8,9 @@ from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.authtoken.models import Token
 from django.shortcuts import get_object_or_404
-from .models import CustomUser  
+from .models import CustomUser , FacilityAdministrator
 
-User = get_user_model()
+# User = get_user_model()
 
 # Registration view
 @api_view(['POST'])
@@ -68,9 +68,11 @@ class UserProfileView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
-class FacilityAdministrator(APIView):
+class FacilityAdministratorView(APIView):
     authentication_classes = ([SessionAuthentication, TokenAuthentication])
     permission_classes = (IsAuthenticated,)
+    serializer_class = FacilityAdministratorSerializer
+
 
     # def get(self, request):
     #     user_data = FacilityAdministratorSerializer(request.user).data
@@ -86,7 +88,11 @@ class FacilityAdministrator(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+    def get(self, request):
+        data = FacilityAdministrator.objects.get(user=request.user)
+        serializer = FacilityAdministratorSerializer(data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
     # def put(self, request):
     #     # request.data.pop("date_of_birth")
     #     # request.data.pop("favorite_sports")
