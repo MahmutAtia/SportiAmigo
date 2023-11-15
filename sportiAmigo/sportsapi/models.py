@@ -26,7 +26,8 @@ class SkillLevel(models.Model):
 
 class Sport(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="Sport Name")
-    description = models.TextField(verbose_name="Sport Description")
+    description = models.TextField(verbose_name="Sport Description", blank=True, null=True)
+    image_url = models.URLField(verbose_name="Image URL", blank=True, null=True)
 
     # Sport's popularity rating, indicating how widely it's played (1 to 10)
     popularity_rating = models.DecimalField(
@@ -38,10 +39,10 @@ class Sport(models.Model):
     )
 
     # Sport's categories (ManyToManyField to Category model)
-    categories = models.ManyToManyField(Category, verbose_name="Sport Categories")
+    categories = models.ManyToManyField(Category, verbose_name="Sport Categories", blank=True,  null=True)
 
     # Sport's skill levels (ManyToManyField to SkillLevel model)
-    skill_levels = models.ManyToManyField(SkillLevel, verbose_name="Skill Levels")
+    skill_levels = models.ManyToManyField(SkillLevel, verbose_name="Skill Levels",blank=True,  null=True)
 
     # Average duration of a typical game or match in minutes
     average_duration = models.PositiveIntegerField(

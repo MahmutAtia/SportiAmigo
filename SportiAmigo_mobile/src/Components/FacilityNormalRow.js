@@ -1,8 +1,8 @@
 
 import React from 'react';
-import {View, StyleSheet, ScrollView, ImageBackground} from 'react-native';
+import { StyleSheet, ScrollView, ImageBackground, FlatList} from 'react-native';
 import {Text,Layout } from '@ui-kitten/components';
-import FacilityViewComponent from '../../Components/FacilityViewComponent';
+import FacilityViewComponent from './FacilityViewComponent';
 
 
 
@@ -39,42 +39,37 @@ const facilities = [
 ];
 
 
-const SportFacilitiesScreen = () => {
+const FacilityNormalRow = () => {
 
   return (
-    <Layout style={{flex: 1}}>
-    <ImageBackground source={{uri:
-    'https://media.istockphoto.com/id/1221451230/vector/city-map-with-gps-seamless-pattern-texture-with-street-road-river-land-park-roadmap-of-city.jpg?s=612x612&w=0&k=20&c=acDngsGuNz63sWRLRLQzDXRPb128zBE0o5etgu7abJg='
-    }}
-    style={{ 
-     position:
-      'absolute',
-      top: 0,
-      height: '60%',
-      width: '100%',
-      opacity: 0.5,
-    }}/>
+    <Layout style={
+        {
+        height: 250,
+       
+    }}>
+  
 
-    <ScrollView
-    horizontal
-    showsHorizontalScrollIndicator={false}
+
+
+    <FlatList
     style={{
-      flex: 1,
-      marginTop: '10%'
-      }}
-    >
+        paddingHorizontal: 10,
+        marginTop: '5%',
+        }}
+    showsHorizontalScrollIndicator={false}
+    horizontal
+    data={facilities}
+    keyExtractor={(item) => item.name}
+    renderItem={({item}) => (
+      <FacilityViewComponent title={item.name} description={item.description} image_uri={item.facility_images}/>
+    )}
+    />
 
-    {facilities.map((item) => (<FacilityViewComponent key={item.name} title={item.name}
-
-    description={item.description} image_uri={item.facility_images}
-     />))
-
-      }
-    </ScrollView>
     </Layout>
   );
 }
 
 const styles = StyleSheet.create({})
 
-export default SportFacilitiesScreen;
+export default FacilityNormalRow;
+

@@ -13,13 +13,14 @@ import FacilityDetailsScreen from "../Screens/DrawerScreens/FacilityDetailsScree
 import NewFacilityScreen from "../Screens/DrawerScreens/NewFacilityScreen";
 
 // Import drawer theme and styles
-import HomeScreen from "../Screens/HomeScreen";
+import HomeScreen from "../Screens/DrawerScreens/HomeScreens/HomeScreen";
 import MyAccountStack from "./MyAccountStack";
 import { useTheme , Layout, Text} from "@ui-kitten/components";
 import { useDispatch, useSelector } from "react-redux";
 import axiosInstance from "../axiosConfig";
 import { setFacility } from "../features/userFeature/authSlice";
 import { LoadingAnimation } from "../Screens/LoadingScreens/LoadingScreen1";
+import HomeStack from "./HomeStack";
 
 const Drawer = createDrawerNavigator();
 
@@ -66,13 +67,13 @@ const CustomDrawerContent = (props) => {
         <DrawerItem
           label="Home"
           icon={({ color, size }) => <FontAwesome name="home" size={size} color={color} />}
-          onPress={() => props.navigation.navigate('Home')}
+          onPress={() => props.navigation.navigate('HomeStack')}
         />
 
         <DrawerItem
           label="My Account"
           icon={({ color, size }) => <FontAwesome name="user" size={size} color={color} />}
-          onPress={() => props.navigation.navigate('MyAccount')}
+          onPress={() => props.navigation.navigate('MyAccountStack')}
         />
         <DrawerItem
           label="Friends"
@@ -139,6 +140,8 @@ const AppDrawerNavigator = () => {
         })
 
         setLoading(false)
+    }else{
+      setLoading(false)
     }
 
   }, [])
@@ -160,12 +163,12 @@ const AppDrawerNavigator = () => {
       >
 
       <Drawer.Screen
-            name="Home"
-            component={HomeScreen}
+            name="HomeStack"
+            component={HomeStack}
             options={{ title: "Home" , }}
             />
         <Drawer.Screen
-          name="MyAccount"
+          name="MyAccountStack"
           component={MyAccountStack}
           options={{ title: "My Account", headerShown: false}}
         />

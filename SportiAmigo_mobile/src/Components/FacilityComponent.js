@@ -53,14 +53,14 @@ export default FeatureElement;
 
 const styledTheme = {
     container: {
-      height: '35%',
-      width: "80%",
       backgroundColor: 'color-basic-100',
       marginLeft: 8,
       shadowColor: 'color-basic-800',
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.2,
       shadowRadius: 4,
+        height: 250,
+        width: 200,
     },
     image: {
       height: '70%',
