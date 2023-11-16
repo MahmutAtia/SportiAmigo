@@ -1,13 +1,20 @@
 from rest_framework import serializers
 from .models import Facility, FacilityReservation, FacilityCheckIn
 from sportsapi.serializers import SportSerializer   
+from sportsapi.models import Sport
 
 
 class FacilitySerializer(serializers.ModelSerializer):
+    sports = SportSerializer(many=True)
     class Meta:
-        sports = SportSerializer(many=True)
+       
         model = Facility
-        fields =   '__all__'
+        fields = '__all__'
+    
+        
+
+      
+
 
 
 

@@ -91,6 +91,7 @@ class FacilityAdministratorView(APIView):
     def get(self, request):
         data = FacilityAdministrator.objects.get(user=request.user)
         serializer = FacilityAdministratorSerializer(data)
+
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     # def put(self, request):

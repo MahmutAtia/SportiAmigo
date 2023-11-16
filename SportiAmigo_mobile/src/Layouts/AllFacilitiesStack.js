@@ -11,7 +11,7 @@ const AllFacilitiesStack = () => {
               <stack.Screen 
         name="AllFacilities"
         component={AllFacilitiesScreen}
-        options={{title: "All Facilities"}}
+        options={{title: "All Facilities", headerShown: false}}
         />
                 {/* <stack.Screen name="UpdateInfo" component={InfoUpdateScreen}  
                 screenOptions={{

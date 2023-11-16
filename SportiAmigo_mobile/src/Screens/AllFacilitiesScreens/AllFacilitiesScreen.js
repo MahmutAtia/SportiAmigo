@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Alert} from 'react-native';
+import { StyleSheet, Alert, ScrollView} from 'react-native';
 import axiosInstance from '../../axiosConfig';
 import { Layout , Text} from '@ui-kitten/components';
-import FacilityCard from '../../Components/FacilityCard';
+import FacilityCardBig from '../../Components/FacilityCardBig';
 
 const AllFacilitiesScreen = ({navigation}) => {
     const [facilities, setFacilities] = useState([]);
@@ -15,7 +15,7 @@ const AllFacilitiesScreen = ({navigation}) => {
           "Error",
           "Something went wrong. Please try again later.",
           [
-            { text: "OK", onPress: () => navigation.replace('AllFacilitiesScreen') }
+            { text: "OK", onPress: () => navigation.replace('AllFacilities') }
           ]
         );
       };
@@ -39,10 +39,13 @@ const AllFacilitiesScreen = ({navigation}) => {
     }
     , [])
     return (
-        <Layout>
+        <Layout style={{flex:1}}>
+        <ScrollView >
+        <Text></Text>
          {facilities.map((facility) => {  
-              return <FacilityCard facility={facility} key={facility.id}/>}
+              return <FacilityCardBig facility={facility} key={facility.id}/>}
           )}
+          </ScrollView>
         </Layout>
     );
 }
