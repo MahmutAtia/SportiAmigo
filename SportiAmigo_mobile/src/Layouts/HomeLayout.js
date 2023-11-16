@@ -9,11 +9,10 @@ import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import FriendsScreen from "../Screens/DrawerScreens/FriendsScreen";
 import MessagesScreen from "../Screens/DrawerScreens/MessagesScreen";
 import SportFacilitiesScreen from "../Screens/DrawerScreens/SportFacilitiesScreen";
-import FacilityDetailsScreen from "../Screens/DrawerScreens/FacilityDetailsScreen";
+// import FacilityDetailsScreen from "../Screens/DrawerScreens/FacilityDetailsScreen,js";
 import NewFacilityScreen from "../Screens/DrawerScreens/NewFacilityScreen";
 
 // Import drawer theme and styles
-import HomeScreen from "../Screens/DrawerScreens/HomeScreens/HomeScreen";
 import MyAccountStack from "./MyAccountStack";
 import { useTheme , Layout, Text} from "@ui-kitten/components";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,6 +20,8 @@ import axiosInstance from "../axiosConfig";
 import { setFacility } from "../features/userFeature/authSlice";
 import { LoadingAnimation } from "../Screens/LoadingScreens/LoadingScreen1";
 import HomeStack from "./HomeStack";
+import AllFacilitiesScreen from "../Screens/AllFacilitiesScreens/AllFacilitiesScreen";
+import AllFacilitiesStack from "./AllFacilitiesStack";
 
 const Drawer = createDrawerNavigator();
 
@@ -68,6 +69,11 @@ const CustomDrawerContent = (props) => {
           label="Home"
           icon={({ color, size }) => <FontAwesome name="home" size={size} color={color} />}
           onPress={() => props.navigation.navigate('HomeStack')}
+        />
+        <DrawerItem
+          label="All Facilities"
+          icon={({ color, size }) => <FontAwesome name="building" size={size} color={color} />}
+          onPress={() => props.navigation.navigate('AllFacilitiesStack')}
         />
 
         <DrawerItem
@@ -187,15 +193,20 @@ const AppDrawerNavigator = () => {
           component={SportFacilitiesScreen}
           options={{ title: "Sport Facilities" }}
         />
-        <Drawer.Screen
+        {/* <Drawer.Screen
           name="FacilityDetails"
           component={FacilityDetailsScreen}
           options={{ title: "Facility Details" }}
-        />
+        /> */}
         <Drawer.Screen
           name="NewFacility"
           component={NewFacilityScreen}
           options={{ title: "Register New Facility" }}
+        />
+        <Drawer.Screen 
+        name="AllFacilitiesStack"
+        component={AllFacilitiesStack}
+        options={{title: "All Facilities"}}
         />
       </Drawer.Navigator>
     </NavigationContainer>

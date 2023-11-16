@@ -12,12 +12,7 @@ class Facility(models.Model):
 
     name = models.CharField(max_length=100, verbose_name="Facility Name")
 
-    # Address details
-    country = models.CharField(max_length=100, verbose_name="Country", blank=True, null=True)
-    city = models.CharField(max_length=100, verbose_name="City", blank=True, null=True)
-    neighborhood = models.CharField(max_length=100, verbose_name="Neighborhood", blank=True, null=True)
-    address = models.CharField(max_length=200, verbose_name="Facility Address", blank=True, null=True)
-    # ... other fields ...
+    
 
 
     # Maximum capacity of the facility
@@ -42,7 +37,14 @@ class Facility(models.Model):
 
     # Facility images (you can use Django's ImageField)
     # facility_images = models.ImageField(upload_to="facility_images/", blank=True, null=True, verbose_name="Facility Images")
+    profile_image_url = models.URLField(verbose_name="Profile Image URL", blank=True, null=True)
 
+
+    # Address details
+    country = models.CharField(max_length=100, verbose_name="Country", blank=True, null=True , default='Turkey')
+    state = models.CharField(max_length=100, verbose_name="State", blank=True, null=True, default='Ankara')
+    city = models.CharField(max_length=100, verbose_name="City", blank=True, null=True)
+    location_address = models.CharField(max_length=200, verbose_name="Facility Address", blank=True, null=True)
     # Latitude and longitude of the facility location
     location_latitude = models.FloatField(blank=True, null=True, verbose_name="Latitude")
     location_longitude = models.FloatField(blank=True, null=True, verbose_name="Longitude")
