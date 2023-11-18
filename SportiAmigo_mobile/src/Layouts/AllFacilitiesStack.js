@@ -1,7 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import AllFacilitiesScreen from '../Screens/AllFacilitiesScreens/AllFacilitiesScreen';
+import AllFacilitiesScreen from '../Screens/DrawerScreens/AllFacilitiesScreens/AllFacilitiesScreen';
+import FacilityDetailsScreen from '../Screens/DrawerScreens/AllFacilitiesScreens/FacilityDetailsScreen';
 
 const AllFacilitiesStack = () => {
         const stack = createNativeStackNavigator();
@@ -13,14 +14,14 @@ const AllFacilitiesStack = () => {
         component={AllFacilitiesScreen}
         options={{title: "All Facilities", headerShown: false}}
         />
-                {/* <stack.Screen name="UpdateInfo" component={InfoUpdateScreen}  
+                <stack.Screen name="FacilityDetails" component={FacilityDetailsScreen} 
                 screenOptions={{
     
                     presentation: 'modal',
                     gestureDirection: "horizontal-inverted",
                     animation:'slide_to_top'
                                 }}/>
-     */}
+    
     
             </stack.Navigator>
     );

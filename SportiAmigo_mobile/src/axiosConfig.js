@@ -9,7 +9,7 @@ const get_token = () => {
 };
 
 const axiosInstance = axios.create({
-  baseURL: "https://4b1f-78-174-214-226.ngrok-free.app", // Replace with your API base URL
+  baseURL: "https://b157-88-240-179-20.ngrok-free.app", // Replace with your API base URL
   timeout: 5000, // Set a reasonable timeout
   headers: {
     "Content-Type": "application/json",

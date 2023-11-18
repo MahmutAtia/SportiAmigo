@@ -73,12 +73,24 @@ class Facility(models.Model):
 
 
 
-class FacilityReservation(models.Model):
-    user = models.ForeignKey("userauth.CustomUser", on_delete=models.CASCADE)
+class FacilitySportSchedule(models.Model):
     facility = models.ForeignKey(Facility, on_delete=models.CASCADE)
-    reserved_at = models.DateTimeField(auto_now_add=True)
-    
-class FacilityCheckIn(models.Model):
-    user = models.ForeignKey("userauth.CustomUser", on_delete=models.CASCADE)
-    facility = models.ForeignKey(Facility, on_delete=models.CASCADE)
-    checkin_at = models.DateTimeField(auto_now_add=True)
+    sport = models.ForeignKey(Sport, on_delete=models.CASCADE)
+    day_of_week = models.CharField(max_length=10)  # Monday, Tuesday, etc.
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    max_capacity = models.PositiveIntegerField()
+
+
+
+    def available_slots(self, booking_date):
+        booked_slots = self.booking_set.filter(booking_date=booking_date).count()
+        return self.max_capacity - booked_slots
+
+
+
+
+
+
+    def __str__(self):
+        return f"{self.facility.name} - {self.sport.name} - {self.day_of_week} - {self.start_time} to {self.end_time}"

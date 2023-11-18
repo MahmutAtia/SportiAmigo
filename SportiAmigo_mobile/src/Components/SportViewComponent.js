@@ -3,17 +3,19 @@ import {View,Image, StyleSheet, TouchableOpacity} from 'react-native';
 import { Card, Button, Icon, Text, useTheme, Layout } from '@ui-kitten/components';
 import { useNavigation } from '@react-navigation/native';
 
-const SportViewComponent = ({image_url,title}) => {
+const SportViewComponent = ({sport}) => {
 
     const navigation = useNavigation();
     return (
 
         <TouchableOpacity
-         onPress={() => navigation.navigate('SportClickScreen')}
+         onPress={
+            ()=> navigation.navigate('AllFacilitiesStack', {screen: 'AllFacilities', params: {sport_id: sport.id }})
+         }
         style={styles.container}
          >
-         <Image  source={{uri: image_url}} style={styles.image} />
-            <Text style={styles.title}>{title}</Text>
+         <Image  source={{uri: sport.image_url}} style={styles.image} />
+            <Text style={styles.title}>{sport.name}</Text>
         </TouchableOpacity>
     );
 }

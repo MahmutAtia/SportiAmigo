@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Facility, FacilityReservation, FacilityCheckIn
+from .models import Facility,FacilitySportSchedule
 
 # Register your models here.
-admin.site.register([Facility, FacilityReservation, FacilityCheckIn])
+admin.site.register([Facility, FacilitySportSchedule])

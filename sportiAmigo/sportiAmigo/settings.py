@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'facility',  # facility app
     'events',  # events 
     'friends',  # friends app
+    'booking',  # booking app
 
 
 

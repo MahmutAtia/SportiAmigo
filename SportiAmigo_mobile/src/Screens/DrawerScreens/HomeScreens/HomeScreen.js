@@ -63,6 +63,10 @@ function HomeScreen({ navigation }) {
         ))}
       </ScrollView> */}
 
+      <Button title="Show me more of the app" onPress={
+        ()=> navigation.navigate('AllFacilitiesStack', {screen: 'AllFacilities', params: {sport: 'Soccer'}})
+      } />
+
         {/* 2 Rows Sports Elements */}
 
         <Text
@@ -90,8 +94,7 @@ function HomeScreen({ navigation }) {
             keyExtractor={(item) => item?.id.toString()}
             renderItem={({ item }) => (
               <SportViewComponent
-                title={item?.name}
-                image_url={item?.image_url}
+                sport={item}
                 key={item?.id}
               />
             )}

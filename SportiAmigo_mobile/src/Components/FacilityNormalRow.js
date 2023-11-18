@@ -49,8 +49,6 @@ const FacilityNormalRow = () => {
     }}>
   
 
-
-
     <FlatList
     style={{
         paddingHorizontal: 10,

@@ -39,10 +39,10 @@ class Sport(models.Model):
     )
 
     # Sport's categories (ManyToManyField to Category model)
-    categories = models.ManyToManyField(Category, verbose_name="Sport Categories", blank=True,  null=True)
+    categories = models.ManyToManyField(Category, verbose_name="Sport Categories")
 
     # Sport's skill levels (ManyToManyField to SkillLevel model)
-    skill_levels = models.ManyToManyField(SkillLevel, verbose_name="Skill Levels",blank=True,  null=True)
+    skill_levels = models.ManyToManyField(SkillLevel, verbose_name="Skill Levels")
 
     # Average duration of a typical game or match in minutes
     average_duration = models.PositiveIntegerField(

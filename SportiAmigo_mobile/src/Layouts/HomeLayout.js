@@ -20,7 +20,6 @@ import axiosInstance from "../axiosConfig";
 import { setFacility } from "../features/userFeature/authSlice";
 import { LoadingAnimation } from "../Screens/LoadingScreens/LoadingScreen1";
 import HomeStack from "./HomeStack";
-import AllFacilitiesScreen from "../Screens/AllFacilitiesScreens/AllFacilitiesScreen";
 import AllFacilitiesStack from "./AllFacilitiesStack";
 
 const Drawer = createDrawerNavigator();
