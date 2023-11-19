@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, Image, View, StyleSheet } from 'react-native';
 import { Layout, Text, Button } from '@ui-kitten/components';
+import SportScheduleSection from '../../../Components/SportScheduleSection';
 
 const FacilityDetailsScreen = ({route}) => {
   const { facility } = route.params;
@@ -24,6 +25,8 @@ const FacilityDetailsScreen = ({route}) => {
           </View>
 
           <Button style={styles.button}>Book Now</Button>
+
+          <SportScheduleSection  facility	  ={facility} />
         </View>
       </ScrollView>
     </Layout>
@@ -65,4 +68,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FacilityDetailsScreen
+export default FacilityDetailsScreen;
+
+
+
+

@@ -82,7 +82,6 @@ class FacilitySportSchedule(models.Model):
     max_capacity = models.PositiveIntegerField()
 
 
-
     def available_slots(self, booking_date):
         booked_slots = self.booking_set.filter(booking_date=booking_date).count()
         return self.max_capacity - booked_slots

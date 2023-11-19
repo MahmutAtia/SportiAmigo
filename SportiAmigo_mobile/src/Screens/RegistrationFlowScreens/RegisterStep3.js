@@ -20,7 +20,7 @@ import { theme } from "../../themes";
 import CustomAutoComplete from "../../Components/CustomAutocomplete";
 // import LoadingPage from "../LoadingScreen";
 import DottedProgress from "../../Components/DottedProgress ";
-import LottieAnimation from "../LoadingScreens/LoadingScreen1";
+import LottieAnimation, { LoadingAnimation } from "../LoadingScreens/LoadingScreen1";
 
 const RegisterStep3 = ({navigation}) => {
   const [loading, setLoading] = useState(true); // State to track loading state
@@ -88,7 +88,7 @@ const RegisterStep3 = ({navigation}) => {
 
   return loading ? (
    
-   <LottieAnimation animationSource={require('../../../assets/1.json')} />
+   <LoadingAnimation />
   ) : (
     <Layout style={styles.container}>
     {/* <EvaIconsPack /> */}

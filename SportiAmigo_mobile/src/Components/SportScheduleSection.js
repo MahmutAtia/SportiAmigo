@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, FlatList, Alert } from 'react-native';
-import axios from 'axios';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { Icon, Card, Divider } from '@ui-kitten/components';
 import axiosInstance from '../axiosConfig';
 
-const SportScheduleSection = ({facility_id,sport_id, date }) => {
+const SportScheduleSection = ({ facility }) => {
   const [sportSchedules, setSportSchedules] = useState([]);
   const [selectedSchedule, setSelectedSchedule] = useState(null);
+  const [date, setDate] = useState('2023-11-20');
 
   useEffect(() => {
-    // Fetch sport schedules for the selected date
-    axiosInstance.get(`/api/facility/facilities/schedule/${facility_id}/${sport_id}/${date}/`).then((res) => {
-        console.log(res.data);
+    axiosInstance
+      .get(`/api/facility/facilities/schedule/${facility.id}/${facility.sports[0].id}/${date}`)
+      .then((res) => {
         setSportSchedules(res.data);
-        }).catch((err) => {
+      })
+      .catch((err) => {
         console.log(err);
-        });
-
-
- 
+      });
   }, [date]);
 
   const handleScheduleSelection = (schedule) => {
@@ -35,23 +34,33 @@ const SportScheduleSection = ({facility_id,sport_id, date }) => {
 
   return (
     <View>
-      <Text>Sport Schedules for {date}</Text>
-      <FlatList
-        data={sportSchedules}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => handleScheduleSelection(item)}>
+      <Text category="h6" style={{ marginVertical: 10 }}>
+        Sport Schedules for {date}
+      </Text>
+
+      {sportSchedules.map((item) => (
+        <Card
+          key={item.id}
+          style={{ marginVertical: 5 }}
+          onPress={() => handleScheduleSelection(item)}
+          status={selectedSchedule && selectedSchedule.id === item.id ? 'danger' : 'basic'}
+        >
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text>{item.start_time} - {item.end_time}</Text>
-          </TouchableOpacity>
-        )}
-      />
+            <Text>{item.available_slots} available of {item.max_capacity}</Text>
+          </View>
+        </Card>
+      ))}
+
       {selectedSchedule && (
-        <View>
-          <Text>Selected Schedule</Text>
-          <Text>{selectedSchedule.start_time} - {selectedSchedule.end_time}</Text>
-          <TouchableOpacity onPress={handleBooking}>
-            <Text>Book</Text>
-          </TouchableOpacity>
+        <View style={{ marginVertical: 10 }}>
+          <Text category="h6">Selected Schedule</Text>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Text>{selectedSchedule.start_time} - {selectedSchedule.end_time}</Text>
+            <TouchableOpacity onPress={handleBooking}>
+              <Icon name="calendar" width={32} height={32} fill="#3366FF" />
+            </TouchableOpacity>
+          </View>
         </View>
       )}
     </View>
