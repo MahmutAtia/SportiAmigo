@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { View, Button, ScrollView, FlatList } from "react-native";
+import { View, Button, ScrollView, FlatList, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../features/userFeature/authSlice";
 import axiosInstance from "../../../axiosConfig";
 import SportViewComponent from "../../../Components/SportViewComponent";
-import { Layout, Text } from "@ui-kitten/components";
+import { Icon, Input, Layout, Text } from "@ui-kitten/components";
 import { LoadingAnimation } from "../../LoadingScreens/LoadingScreen1";
 import FacilityNearRow from "../../../Components/FacilityNearRow";
 import FacilityNormalRow from "../../../Components/FacilityNormalRow";
+import SearchHeader from "../../../Components/SearchHeader";
 
 function HomeScreen({ navigation }) {
   const [sports, setSports] = useState([]);
@@ -46,6 +47,9 @@ function HomeScreen({ navigation }) {
       }}
     >
       <ScrollView>
+      <SearchHeader />
+
+
         {/* <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}
 
       style={{

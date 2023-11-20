@@ -49,6 +49,8 @@ urlpatterns = [
     path('api/sports/', include('sportsapi.urls')),  # Include sportsapi URLs
     path('api/facility/', include('facility.urls')),  # Include facility URLs
     path('api/sportevents/', include(router.urls)),
+    path('api/booking/', include('booking.urls')),  # Include booking URLs
+    path('api/friends/', include('friends.urls')),  # Include friends URLs
     
 ]
 

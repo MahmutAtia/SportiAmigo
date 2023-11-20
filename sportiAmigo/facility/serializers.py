@@ -16,16 +16,21 @@ class FacilitySerializer(serializers.ModelSerializer):
 
 class FacilitySportScheduleSerializer(serializers.ModelSerializer):
     available_slots = serializers.SerializerMethodField()
+    already_booked = serializers.SerializerMethodField()
 
     class Meta:
         model = FacilitySportSchedule
         fields = '__all__'
-        read_only_fields = ['available_slots']
+        read_only_fields = ['available_slots', 'already_booked']
 
 
     def get_available_slots(self, obj):
         booking_date = self.context['booking_date']
         return obj.available_slots(booking_date)
+    
+    def get_already_booked(self, obj):
+        booking_date = self.context['booking_date']
+        return obj.already_booked(booking_date)
         
    
         

@@ -26,7 +26,9 @@ const FacilityDetailsScreen = ({route}) => {
 
           <Button style={styles.button}>Book Now</Button>
 
-          <SportScheduleSection  facility	  ={facility} />
+         { facility.sports && facility.sports.map((sport) => (
+            <SportScheduleSection facility_id={ facility.id} sport_id={sport.id} />
+          ))}
         </View>
       </ScrollView>
     </Layout>
