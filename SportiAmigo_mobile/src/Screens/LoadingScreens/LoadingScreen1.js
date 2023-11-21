@@ -9,7 +9,6 @@ import Animation5 from '../../../assets/Animations/5.json';
 import Animation6 from '../../../assets/Animations/6.json';
 import Animation7 from '../../../assets/Animations/7.json';
 import Animation8 from '../../../assets/Animations/8.json';
-import Animation9 from '../../../assets/Animations/9.json';
 
   const LottieAnimation = ({ animationSource }) => {
     return (
@@ -34,7 +33,7 @@ const randomNumber = (min, max) => {
   return randint;
 };
 const randAnim = () => {
-  switch (randomNumber(1, 9)) {
+  switch (randomNumber(1, 8)) {
     case 1:
       return Animation1;
     case 2:
@@ -51,8 +50,8 @@ const randAnim = () => {
       return Animation7;
     case 8:
       return Animation8;
-    case 9:
-      return Animation9;
+    default:
+      return Animation1;
   
   }
 };

@@ -1,6 +1,9 @@
 from django.db import models
 from userauth.models import CustomUser
 
+
+
+
 class Friendship(models.Model):
     from_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='friendship_requests_sent')
     to_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='friendship_requests_received')

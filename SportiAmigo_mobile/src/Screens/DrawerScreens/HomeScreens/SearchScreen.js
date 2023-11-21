@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
-import {  Text, Input, Button } from '@ui-kitten/components';
-import axios from 'axios';
+import {  Text, Input, Button, Layout } from '@ui-kitten/components';
 import axiosInstance from '../../../axiosConfig';
+import UserStatus from '../../../Components/UserStatus';
 
 const SearchScreen = () => {
   const [searchText, setSearchText] = useState('');
+  const [users, setUsers] = useState([]);
 
   const handleSearch = () => {
     // Logic for handling the search action with searchText
@@ -13,7 +13,9 @@ const SearchScreen = () => {
     // Add your search logic here, such as fetching search results
 
     axiosInstance.get(`/api/friends/search/?query=${searchText}`).then((res) => {
-      console.log(res.data);
+      setUsers(res.data);
+      console.log(res.data.length);
+
     }).catch((err) => {
       console.log(err);
     }
@@ -21,7 +23,7 @@ const SearchScreen = () => {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: 'start', alignItems: 'center' }}>
+    <Layout style={{ flex: 1, justifyContent: 'start', alignItems: 'center' }}>
       <Input
         placeholder="Search"
         value={searchText}
@@ -31,7 +33,12 @@ const SearchScreen = () => {
       <Button onPress={handleSearch} style={{ marginTop: 20 }}>
         Search
       </Button>
-    </View>
+
+      {/* Add your search results here */}
+      <UserStatus users={users} setUsers={setUsers} />
+
+
+    </Layout>
   );
 };
 
