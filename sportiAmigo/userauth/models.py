@@ -67,6 +67,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     
     def is_facility_admin(self):
         return hasattr(self, 'facility_administrator')
+    
+    
+        
         
 
 

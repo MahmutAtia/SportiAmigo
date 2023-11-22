@@ -1,9 +1,8 @@
 from django.urls import path
-from .views import FriendshipListView, FriendshipDetailView, SearchUserView, FriendshipCreateView
+from . import views
 urlpatterns = [
-    path('friendships/', FriendshipListView.as_view(), name='friendship-list'),
-    path('friendships/add/', FriendshipCreateView.as_view(), name='friendship-create'),
-    path('friendships/<int:pk>/', FriendshipDetailView.as_view(), name='friendship-detail'),
-    path('search/', SearchUserView.as_view()
-         , name='search-user'),
+  path('send-request/<int:pk>/', views.send_friend_request, name='send-request'),
+    path('accept-request/<int:pk>/', views.accept_friend_request, name='accept-request'),
+    path('decline-request/<int:pk>/', views.decline_friend_request, name='decline-request'),
+    path('cancel-request/<int:pk>/', views.cancel_friend_request, name='cancel-request'),
 ]
