@@ -2,110 +2,112 @@ import React from "react";
 import { Image, TouchableOpacity, View } from "react-native";
 import { Layout, Text, useTheme, Icon } from "@ui-kitten/components";
 import Badge from "./Badge";
-import { useNavigation } from '@react-navigation/native';
-
+import { useNavigation } from "@react-navigation/native";
 
 const FacilityCardBig = ({ facility }) => {
   console.log(facility);
-    const navigation = useNavigation();
+  const navigation = useNavigation();
 
   const theme = useTheme();
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('FacilityDetails', {facility: facility})}>
+    <TouchableOpacity
+      onPress={() =>
+        navigation.navigate("AllFacilitiesStack", {
+          screen: "FacilityDetails",
+          params: { facility: facility },
+        })
+      }
+    >
+      <Layout style={styles.cardContainer}>
+        {facility.state && (
+          <Badge
+            color={theme["color-danger-500"]}
+            top={50}
+            left={10}
+            text={facility.state}
+          />
+        )}
 
-    <Layout style={styles.cardContainer}>
+        {facility.city && (
+          <Badge
+            color={theme["color-danger-500"]}
+            top={80}
+            left={10}
+            text={facility.city}
+          />
+        )}
 
-      {facility.state && (
-        <Badge
-          color={theme["color-danger-500"]}
-          top={50}
-          left={10}
-          text={facility.state}
+        {facility.capacity && (
+          <Badge
+            color={theme["color-primary-500"]}
+            top={140}
+            left={290}
+            text={facility.capacity}
+          />
+        )}
+        <Image
+          style={styles.image}
+          source={{ uri: facility.profile_image_url }}
         />
-      )}
 
-      {facility.city && (
-        <Badge
-          color={theme["color-danger-500"]}
-          top={80}
-          left={10}
-          text={facility.city}
-        />
-      )}
+        <Layout style={styles.row}>
+          {/* Title */}
 
-      {facility.capacity && (
-        <Badge
-          color={theme["color-primary-500"]}
-          top={140}
-          left={290}
-          text={facility.capacity}
-        />
-      )}
-      <Image
-        style={styles.image}
-        source={{ uri: facility.profile_image_url }}
-      />
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: "bold",
+            }}
+          >
+            {facility.name}
+          </Text>
 
-      <Layout style={styles.row}>
-        {/* Title */}
+          <Layout
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            {/* Icon */}
+            <Icon
+              name="star-outline"
+              fill={theme["color-primary-500"]}
+              style={{
+                width: 20,
+                height: 20,
+              }}
+            />
 
-        <Text
-          style={{
-            fontSize: 16,
-            fontWeight: "bold",
-          }}
-        >
-          {facility.name}
-        </Text>
+            <Text>4.5</Text>
+          </Layout>
+        </Layout>
 
         <Layout
           style={{
             flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
+            width: "100%",
+            justifyContent: "flex-start",
           }}
         >
-          {/* Icon */}
-          <Icon
-            name="star-outline"
-            fill={theme["color-primary-500"]}
-            style={{
-              width: 20,
-              height: 20,
-            }}
-          />
-
-          <Text>4.5</Text>
+          {facility.sports.map((sport) => (
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: "bold",
+                color: theme["color-primary-500"],
+                marginRight: 5,
+              }}
+              key={sport.id}
+            >
+              {sport.name}
+            </Text>
+          ))}
         </Layout>
+        <Text style={styles.detailsContainer}>{facility.description}</Text>
+        {/* Add other details here */}
       </Layout>
-
-      <Layout
-        style={{
-          flexDirection: "row",
-           width: "100%",
-           justifyContent: "flex-start",
-        }}
-      >
-        {facility.sports.map((sport) => (
-          <Text 
-          style={{
-            fontSize: 12,
-            fontWeight: "bold",
-            color: theme["color-primary-500"],
-            marginRight: 5,
-            } }
-          
-          key={sport.id} >
-             {sport.name}
-          </Text>
-        ))}
-      </Layout>
-      <Text style={styles.detailsContainer}>{facility.description}</Text>
-      {/* Add other details here */}
-
-    </Layout>
     </TouchableOpacity>
-
   );
 };
 
@@ -117,14 +119,13 @@ const styles = {
     borderRadius: 10,
     width: "100%",
     height: 300,
-    marginHorizontal: 'auto',
+    marginHorizontal: "auto",
     padding: 10,
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
     marginTop: 20,
     alignSelf: "end",
-    
   },
   image: {
     width: "100%",

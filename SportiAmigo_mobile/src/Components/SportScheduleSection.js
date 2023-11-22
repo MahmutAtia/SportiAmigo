@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { View, TouchableOpacity, Alert } from "react-native";
+import { View, TouchableOpacity, Alert, ScrollView } from "react-native";
 import { Icon, Card, Layout, Text, Modal, Spinner } from "@ui-kitten/components";
 import axiosInstance from "../axiosConfig";
 
-const SportScheduleSection = ({ facility_id, sport_id }) => {
+const SportScheduleSection = ({
+    facility_id,
+    sport_id,
+    date,
+  
+}) => {
   const [sportSchedules, setSportSchedules] = useState([]);
   const [selectedSchedule, setSelectedSchedule] = useState(null);
   const [loading, setLoading] = useState(false); // State to track loading state
-  const [date, setDate] = useState("2023-11-21");
 
+  console.log(sportSchedules);
+        
   useEffect(() => {
     fetchData();
-  }, [date]); // Update useEffect dependencies
+  }, []); // Update useEffect dependencies
 
   const fetchData = () => {
     setLoading(true);
@@ -63,22 +69,15 @@ const SportScheduleSection = ({ facility_id, sport_id }) => {
   };
 
   return (
+    <ScrollView>
     <Layout>
-      <Modal visible={loading} animationType="slide" 
-      backdropStyle={{backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
-      >
-        <Layout
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: 'transparent'
-
-          }}
-        >
-          <Spinner size="giant" />
-        </Layout>
-      </Modal>
+     
+      {  loading && 
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+       <Spinner size="giant" />
+       </View>
+       }
+       
       {selectedSchedule && (
         <View style={{ marginVertical: 10 }}>
           <Text category="h6">Selected Schedule</Text>
@@ -151,6 +150,7 @@ const SportScheduleSection = ({ facility_id, sport_id }) => {
         </Card>
       ))}
     </Layout>
+    </ScrollView>
   );
 };
 

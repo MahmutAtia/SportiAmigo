@@ -5,12 +5,20 @@ import { Layout , Text} from '@ui-kitten/components';
 import FacilityCardBig from '../../../Components/FacilityCardBig';
 
 const AllFacilitiesScreen = ({navigation, route}) => {
+    navigation.setOptions({ 
+      headerShown: false,
+     });
+
+
     const [facilities, setFacilities] = useState([]);
     const [loading, setLoading] = useState(false);
 
+    // default date is tommorow
+
     console.log(route.params);
-    const sport_id = route.params?.sport_id  ?'?sport_id='+ route.params?.sport_id : '';
+    const sport_id = route.params?.sport_id  ?'?sport_id='+ route.params.sport_id : '';
     // console.log('Sport id',sport_id);
+
 
     const handleFetchError = () => {
         Alert.alert(

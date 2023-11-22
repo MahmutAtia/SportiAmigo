@@ -152,11 +152,11 @@ const AppDrawerNavigator = () => {
   }, [])
 
   return loading ? <LoadingAnimation/> : (
-    <NavigationContainer  independent={true} >
       <Drawer.Navigator
         initialRouteName="Home"
         drawerContent={(props) => <CustomDrawerContent {...props} />}
        screenOptions={{
+          // headerShown: false,
           activeTintColor:  theme['color-primary-500'], // Your active color
           inactiveTintColor : theme['color-primary-500'], // Your inactive color
           activeBackgroundColor: theme['color-primary-100'], // Your active background color
@@ -208,7 +208,6 @@ const AppDrawerNavigator = () => {
         options={{title: "All Facilities"}}
         />
       </Drawer.Navigator>
-    </NavigationContainer>
   );
 };
 

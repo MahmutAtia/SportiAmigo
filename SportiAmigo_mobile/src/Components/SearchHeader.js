@@ -2,34 +2,25 @@ import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { Icon, Text } from '@ui-kitten/components';
 import { useNavigation } from '@react-navigation/native';
-
+import LottieView from 'lottie-react-native';
+import { Dimensions } from 'react-native';
 const SearchHeader = () => {
   const navigation = useNavigation();
-
+  const { width, height, scale } = Dimensions.get('window');
   const handlePress = () => {
     navigation.navigate('Search');
   };
 
+  const animationSource = require('../../assets/Animations/search.json');
+
   return (
     <TouchableOpacity
-      onPress={handlePress}
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        margin: 16,
-        backgroundColor: 'white',
-        borderRadius: 16,
-        borderWidth: 1,
-        borderColor: 'grey',
-        paddingHorizontal: 10,
-        paddingVertical: 8,
-      }}
-    >
-      <Icon name="search-outline" width={24} height={24} fill="grey" style={{ marginRight: 10 }} />
-      <Text style={{ fontSize: 16, color: 'grey' }}>Search</Text>
-      <Icon name="arrow-ios-forward-outline" width={24} height={24} fill="grey" style={{ marginLeft: 10 }} />
+    style={{ justifyContent:'center', alignItems:'center', width: scale* 143 }}
+     onPress={handlePress}>
+            <LottieView source={animationSource} autoPlay loop style={{width:400}} />
+
     </TouchableOpacity>
+
   );
 };
 

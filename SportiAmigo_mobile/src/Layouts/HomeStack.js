@@ -2,16 +2,18 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import HomeScreen from "../Screens/DrawerScreens/HomeScreens/HomeScreen";
 import SportClickScreen from "../Screens/DrawerScreens/HomeScreens/SportClickScreen";
-import FaciltyDetailsScreen from "../Screens/DrawerScreens/HomeScreens/FaciltyDetailsScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AllFacilitiesScreen from "../Screens/DrawerScreens/AllFacilitiesScreens/AllFacilitiesScreen";
 import AllFacilitiesStack from "./AllFacilitiesStack";
 import FacilityDetailsScreen from "../Screens/DrawerScreens/AllFacilitiesScreens/FacilityDetailsScreen";
-import SearchScreen from "../Screens/DrawerScreens/HomeScreens/SearchScreen";
+import SearchScreen from "../Screens/DrawerScreens/HomeScreens/SearchScreens/SearchScreen";
 
-const HomeStack = () => {
+const HomeStack = ({navigation}) => {
   const stack = createNativeStackNavigator();
 
+  navigation.setOptions({
+    headerShown: true,
+  }); 
   return (
     <stack.Navigator>
       <stack.Screen

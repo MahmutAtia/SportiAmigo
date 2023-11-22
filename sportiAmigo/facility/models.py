@@ -88,8 +88,9 @@ class FacilitySportSchedule(models.Model):
     
 
     # Check if the facility is already booked for the given date
-    def already_booked(self, booking_date):
-        booked_slots = self.booking_set.filter(booking_date=booking_date).count()
+    def already_booked(self, booking_date,user):
+        booked_slots = self.booking_set.filter(booking_date=booking_date, user=user
+                                               ).count()
         return True if booked_slots > 0 else False
 
 

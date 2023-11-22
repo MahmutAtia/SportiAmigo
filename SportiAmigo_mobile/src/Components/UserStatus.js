@@ -160,8 +160,10 @@ const UsersStatus = ({ users, setUsers }) => {
 
   const renderItem = ({ item, index }) => (
     <ListItem
-      title={`${item.first_name} ${item.last_name} ${index + 1}`}
-      description={`${item.email} ${index + 1}`}
+      title={`${item.first_name} ${item.last_name} `}
+      description={`${item.state ? item.state : ""
+      } ${item.city ? item.city : ""
+      }`}
       accessoryLeft={renderItemIcon}
       accessoryRight={() => renderItemAccessory(item)} // Changed here
     />
@@ -172,7 +174,8 @@ const UsersStatus = ({ users, setUsers }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: "90%",
+    width: "95%",
+    padding: 5,
   },
 });
 
