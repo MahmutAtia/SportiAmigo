@@ -43,6 +43,7 @@ function Index() {
       const userInfo = await AsyncStorage.getItem("userInfo");
       console.log("userToken", userToken);
       console.log("userInfo", userInfo);
+      console.log('user_id', JSON.parse(userInfo).user_id);
       if (userInfo) {
         // if user info exist in local storage because the token i use it regstration for updating data
         dispatch(loginSuccess({ userToken, userInfo: JSON.parse(userInfo) }));

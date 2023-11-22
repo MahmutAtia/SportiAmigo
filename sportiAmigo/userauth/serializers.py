@@ -17,6 +17,17 @@ class LoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ['email', 'password']
+
+
+class UserLoginSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'email', 'first_name', 'last_name', 'is_active', 'is_staff', 'phone_number', 'date_of_birth', 'gender',
+        # 'profile_picture', 
+         'favorite_sports', 'location_latitude', 'location_longitude', 'location_address',
+            'coutry', 'state', 'city','is_facility_admin']
+            
         
 class UserSerializer(serializers.ModelSerializer):
 
@@ -55,7 +66,7 @@ class UserSerializer(serializers.ModelSerializer):
     
     def get_is_self(self, obj):
         user = self.context['request'].user
-        return user == obj 
+        return user.id == obj.id
     
    
     

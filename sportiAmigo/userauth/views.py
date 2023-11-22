@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from django.contrib.auth import get_user_model
-from .serializers import  RegistrationSerializer , UserSerializer,LoginSerializer, FacilityAdministratorSerializer
+from .serializers import  RegistrationSerializer , UserSerializer,UserLoginSerializer, FacilityAdministratorSerializer
 from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.authtoken.models import Token
@@ -24,7 +24,7 @@ def registration_view(request):
     serializer = RegistrationSerializer(data=data)
     if serializer.is_valid():
         serializer.save() # we create a new user
-        user = User.objects.get(email=request.data['email'])
+        user = CustomUser.objects.get(email=data["email"])
         user.set_password(request.data['password'])
         user.is_active = True #make the user active
         user.save()
@@ -43,7 +43,7 @@ def login(request):
     if not user.check_password(request.data['password']):
         return Response("missing user", status=status.HTTP_401_UNAUTHORIZED)
     token, created = Token.objects.get_or_create(user=user)
-    serializer = UserSerializer(user)
+    serializer = UserLoginSerializer(user)
     return Response({'token': token.key, 'user': serializer.data})
 
 

@@ -1,6 +1,14 @@
 from rest_framework import serializers
 from userauth.models import CustomUser
 
+
+
+
+
+
+
+
+
 # class FriendshipSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = Friendship

@@ -29,7 +29,6 @@ def send_friend_request(request, pk):
         is_active=True
     )
 
-    print(friend_request, created, 'friend_request, created', user.id, friend.id)
     if created:
         return Response(status=status.HTTP_201_CREATED)
     else:
@@ -39,12 +38,16 @@ def send_friend_request(request, pk):
 @api_view(['POST'])
 def accept_friend_request(request, pk):
     user = request.user
-    friend_request = FriendRequest.objects.get(pk=pk)
-    if friend_request.receiver == user:
+    try:
+        friend_request = FriendRequest.objects.get(sender = pk, receiver=user, is_active=True)
+    except:
+        return Response(status=status.HTTP_304_NOT_MODIFIED)
+    
+    if friend_request:
         friend_request.accept()
         return Response(status=status.HTTP_202_ACCEPTED)
-    else:
-        return Response(status=status.HTTP_401_UNAUTHORIZED)
+    
+   
     
 @api_view(['POST'])
 def decline_friend_request(request, pk):
@@ -61,12 +64,21 @@ def decline_friend_request(request, pk):
 def cancel_friend_request(request, pk):
     user = request.user
     print(user, pk, 'cancel_friend_request  ')
-    friend_request = FriendRequest.objects.get(pk=pk)
-    if friend_request.sender == user:
-        friend_request.cancel()
+
+    try:
+        friend_request = FriendRequest.objects.filter(sender=user, receiver=pk, is_active=True)
+        print(friend_request, 'friend_request')
+    except:
+        return Response(status=status.HTTP_304_NOT_MODIFIED)
+
+    if friend_request.exists():
+        for request in friend_request:
+            request.cancel()
         return Response(status=status.HTTP_202_ACCEPTED)
     else:
-        return Response(status=status.HTTP_401_UNAUTHORIZED)
+        return Response(status=status.HTTP_304_NOT_MODIFIED)
+
+
     
 @api_view(['POST'])
 def unfriend(request, pk):

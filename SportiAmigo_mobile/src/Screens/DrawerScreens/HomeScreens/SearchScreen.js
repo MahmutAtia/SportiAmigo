@@ -12,7 +12,7 @@ const SearchScreen = () => {
     console.log('Searching for:', searchText);
     // Add your search logic here, such as fetching search results
 
-    axiosInstance.get(`/api/friends/search/?query=${searchText}`).then((res) => {
+    axiosInstance.get(`/api/search/user/?query=${searchText}`).then((res) => {
       setUsers(res.data);
       console.log(res.data.length);
 

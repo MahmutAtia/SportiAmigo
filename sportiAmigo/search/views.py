@@ -19,10 +19,12 @@ class SearchUserView(generics.ListAPIView):
         query = self.request.query_params.get('query', None)
         if query is not None:
             # Search by first name or last name or email
+    
+            
             return CustomUser.objects.filter(
                 models.Q(first_name__icontains=query) |
                 models.Q(last_name__icontains=query) |
                 models.Q(email__icontains=query)
-            ).exclude(id=user.id)
+            ).exclude()
          
         return CustomUser.objects.none()
