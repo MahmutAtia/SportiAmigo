@@ -9,6 +9,9 @@ const UsersTab = ({query}) => {
 
     const [users, setUsers] = useState([]);
     const [ loading, setLoading ] = useState(false);
+    console.log(users.length);
+    console.log(query);
+
 
 
     
@@ -33,9 +36,10 @@ const UsersTab = ({query}) => {
   useEffect(() => {
     handleUserSearch();
     }
-    , [  ]);
+    , [ query ]);
 
-    return loading ? (
+    return query === '' ?  <Text>Search for users</Text> :
+    loading ? (
                 <>
                 <Text>Loading...</Text>
                 <Spinner  size='giant'  />

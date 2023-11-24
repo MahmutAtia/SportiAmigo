@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {View, StyleSheet, Text, ScrollView} from 'react-native';
 import axiosInstance from '../../../../axiosConfig';
-import { Layout } from '@ui-kitten/components';
+import { Layout, Spinner } from '@ui-kitten/components';
 import FacilityCardBig from '../../../../Components/FacilityCardBig';
 
 const FacilityTab = ({query}) => {
@@ -30,8 +30,15 @@ const FacilityTab = ({query}) => {
   useEffect(() => {
     handleFacilitySearch();
     }
-    , [  ]);
-    return (
+    , [query  ]);
+    return query === '' ?  <Text>Search for facilities</Text> :
+    loading ? (
+                <>
+                <Text>Loading...</Text>
+                <Spinner  size='giant'  />
+                </>
+              ) :
+      (
         <ScrollView>
 
         
