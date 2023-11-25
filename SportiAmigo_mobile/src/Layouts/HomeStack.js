@@ -7,6 +7,7 @@ import AllFacilitiesScreen from "../Screens/DrawerScreens/AllFacilitiesScreens/A
 import AllFacilitiesStack from "./AllFacilitiesStack";
 import FacilityDetailsScreen from "../Screens/DrawerScreens/AllFacilitiesScreens/FacilityDetailsScreen";
 import SearchScreen from "../Screens/DrawerScreens/HomeScreens/SearchScreens/SearchScreen";
+import UserDetailsScreen from "../Screens/DrawerScreens/HomeScreens/UserDetailsScreen";
 
 const HomeStack = ({navigation}) => {
   const stack = createNativeStackNavigator();
@@ -31,6 +32,8 @@ const HomeStack = ({navigation}) => {
       <stack.Screen name="AllFacilitiesStack" component={AllFacilitiesStack} />
 
       <stack.Screen name='Search' component={SearchScreen} /> 
+
+      <stack.Screen name="UserDetails" component={UserDetailsScreen} />
     </stack.Navigator>
   );
 };

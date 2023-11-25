@@ -9,6 +9,9 @@ from rest_framework.authentication import TokenAuthentication, SessionAuthentica
 from rest_framework.authtoken.models import Token
 from django.shortcuts import get_object_or_404
 from .models import CustomUser , FacilityAdministrator
+from rest_framework import generics
+
+from search.serializers import SearchUserSerializer
 
 # User = get_user_model()
 
@@ -46,6 +49,42 @@ def login(request):
     serializer = UserLoginSerializer(user)
     return Response({'token': token.key, 'user': serializer.data})
 
+
+
+
+# User Detail view retrive view
+class OtherUserDetailView(generics.RetrieveAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+    lookup_field = 'pk'
+
+
+
+
+
+
+
+        
+       
+
+
+
+
+
+    # def get(self, request, pk):
+    #     user = get_object_or_404(CustomUser, pk=pk)
+    #     serializer = UserSerializer(user)
+    #     return Response(serializer.data, status=status.HTTP_200_OK)
+
+    # def put(self, request, pk):
+    #     user = get_object_or_404(CustomUser, pk=pk)
+    #     serializer = UserSerializer(user, data=request.data, partial=True)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_200_OK)
+        
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # Profile view for authenticated users
 class UserProfileView(APIView):

@@ -9,8 +9,13 @@ import {
   Button,
 } from "@ui-kitten/components";
 import axiosInstance from "../axiosConfig";
+import { useNavigation } from "@react-navigation/native";
 
 const UsersStatus = ({ users, setUsers }) => {
+
+
+
+  const navigation = useNavigation();
   const handle_send_request = (item) => {
     const endpoint = `/api/friends/send-request/${item.id}/`;
     axiosInstance
@@ -160,6 +165,14 @@ const UsersStatus = ({ users, setUsers }) => {
 
   const renderItem = ({ item, index }) => (
     <ListItem
+      key={index}
+      onPress={() => 
+        navigation.navigate("UserDetails", {
+          user_id: item.id,
+        })
+      
+      
+      }
       title={`${item.first_name} ${item.last_name} `}
       description={`${item.state ? item.state : ""
       } ${item.city ? item.city : ""

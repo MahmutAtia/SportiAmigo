@@ -35,6 +35,7 @@ class FriendList(models.Model):
         return False
     def get_friends(self):
         return self.friends.all()
+    
 
 class FriendRequest(models.Model):
 

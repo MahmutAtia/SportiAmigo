@@ -1,8 +1,22 @@
 from rest_framework import serializers
 from .models import Booking
+from facility.models import FacilitySportSchedule
 
+
+
+
+
+class SportScheduleSerializer(serializers.ModelSerializer):
+
+
+    class Meta:
+        model = FacilitySportSchedule
+        fields = '__all__'
 
 class BookingSerializer(serializers.ModelSerializer):
+
+
+    facility_sport_schedule = SportScheduleSerializer(read_only=True)
     class Meta:
         model = Booking
         fields = ['facility_sport_schedule', 'booking_date']

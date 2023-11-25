@@ -25,7 +25,7 @@ class FacilitySportScheduleSerializer(serializers.ModelSerializer):
 
 
     def get_available_slots(self, obj):
-        booking_date = self.context['booking_date' ]
+        booking_date = self.context['booking_date']
         return obj.available_slots(booking_date)
     
     def get_already_booked(self, obj):

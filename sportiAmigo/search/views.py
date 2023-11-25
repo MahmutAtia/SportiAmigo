@@ -5,7 +5,7 @@ from facility.models import Facility
 from facility.serializers import FacilitySerializer
 from .serializers import SearchUserSerializer
 from django.db import models
-
+from userauth.serializers import UserSerializer
 
 # Create your views here.
 
@@ -47,3 +47,6 @@ class SearchUserView(generics.ListAPIView):
             ).exclude()
          
         return CustomUser.objects.none()
+    
+
+
