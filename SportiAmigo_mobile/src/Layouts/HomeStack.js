@@ -33,7 +33,12 @@ const HomeStack = ({navigation}) => {
 
       <stack.Screen name='Search' component={SearchScreen} /> 
 
-      <stack.Screen name="UserDetails" component={UserDetailsScreen} />
+      <stack.Screen name="UserDetails" component={UserDetailsScreen} 
+      setOptions={{
+        presentation: 'modal'
+      }}
+
+       />
     </stack.Navigator>
   );
 };

@@ -29,71 +29,6 @@ const UserDetailsScreen = ({ route }) => {
       });
   }, []);
 
-  // user details example
-  //  {
-  //     "id": 1,
-  //     "first_name": "mamo",
-  //     "last_name": "atia",
-  //     "is_active": true,
-  //     "is_staff": true,
-  //     "phone_number": null,
-  //     "date_of_birth": null,
-  //     "gender": null,
-  //     "favorite_sports": [],
-  //     "location_latitude": null,
-  //     "location_longitude": null,
-  //     "location_address": null,
-  //     "coutry": null,
-  //     "state": null,
-  //     "city": null,
-  //     "is_facility_admin": false,
-  //     "is_self": false,
-  //     "is_friend": false,
-  //     "user_status": -1,
-  //     "friends": [
-  //         {
-  //             "id": 2,
-  //             "first_name": "m",
-  //             "last_name": "m",
-  //             "email": "m@gmail.com",
-  //             "state": null,
-  //             "city": null,
-  //             "is_self": false,
-  //             "is_friend": false
-  //         },
-  //         {
-  //             "id": 6,
-  //             "first_name": "This field is required.",
-  //             "last_name": "This field is required.",
-  //             "email": "mamas@gmail.com",
-  //             "state": null,
-  //             "city": null,
-  //             "is_self": false,
-  //             "is_friend": false
-  //         },
-  //         {
-  //             "id": 23,
-  //             "first_name": "Mahmoud",
-  //             "last_name": "Atia Ead",
-  //             "email": "ssssssss@gmail.com",
-  //             "state": null,
-  //             "city": null,
-  //             "is_self": false,
-  //             "is_friend": false
-  //         },
-  //         {
-  //             "id": 46,
-  //             "first_name": "Mahmoud",
-  //             "last_name": "Atia Ead",
-  //             "email": "mamoo@gmail.com",
-  //             "state": null,
-  //             "city": null,
-  //             "is_self": false,
-  //             "is_friend": false
-  //         }
-  //     ],
-  //     "booked_sport_schedules": []
-  // }
 
   const renderButton = (item) => {
     // console.log('item is', item.user_status);
@@ -146,7 +81,8 @@ const UserDetailsScreen = ({ route }) => {
         <View style={styles.profileContainer}>
           <Image source={{ uri: img_url }} style={styles.profileImage} />
           <Text category="h4" style={styles.name}>
-            {user.first_name} {user.last_name}
+            {(user.first_name + ' ' + user.last_name).substring(0, 10) + "..."}
+            
           </Text>
         </View>
         <View style={styles.detailsContainer}>
@@ -220,7 +156,11 @@ const UserDetailsScreen = ({ route }) => {
 
 const styles = StyleSheet.create({
   container: {
+
     flex: 1,
+    padding: 10,
+    alignItems: "center",
+
   },
   profileContainer: {
     alignItems: "center",
