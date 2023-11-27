@@ -43,12 +43,13 @@ function Index() {
       const userInfo = await AsyncStorage.getItem("userInfo");
       console.log("userToken", userToken);
       console.log("userInfo", userInfo);
-      console.log('user_id', JSON.parse(userInfo).user_id);
-      if (userInfo) {
+      if (userToken && userInfo) {
+        console.log("from if");
         // if user info exist in local storage because the token i use it regstration for updating data
         dispatch(loginSuccess({ userToken, userInfo: JSON.parse(userInfo) }));
         // AsyncStorage.setItem("userInfo", userInfo);
       } else {
+        console.log("from else");
         dispatch(loginFailure());
       }
     };
@@ -60,6 +61,7 @@ function Index() {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <Text>Loading...</Text>
+        <Text>state.isLoading</Text>
       </View>
     );
   }

@@ -61,10 +61,12 @@ const FacilityDetailsScreen = ({ route, navigation }) => {
           {/* Booking Button */}
           <Button
             style={styles.button}
-            onPress={() => navigation.navigate("SportsTab", { facility,
-            date : date.
-            toISOString().split('T')[0]
-             })}
+            onPress={() =>
+              navigation.navigate("SportsTab", {
+                facility,
+                date: date.toISOString().split("T")[0],
+              })
+            }
           >
             Book Now
           </Button>

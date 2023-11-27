@@ -44,8 +44,11 @@ const SportScheduleSection = ({
   const handleBooking = () => {
     console.log(selectedSchedule);
     if (selectedSchedule) {
+
+      console.log("selected schedule id",selectedSchedule.id);
       axiosInstance
         .post("api/booking/", {
+
           facility_sport_schedule: selectedSchedule.id,
           booking_date: date,
         })

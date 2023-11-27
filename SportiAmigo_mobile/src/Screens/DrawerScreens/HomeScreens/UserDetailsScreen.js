@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ScrollView, View, Image, StyleSheet } from "react-native";
 import { Layout, Text, Button, Spinner } from "@ui-kitten/components";
 import axiosInstance from "../../../axiosConfig";
+import UserStatusButton from "../../../Components/UserStatusButton";
 
 const UserDetailsScreen = ({ route }) => {
   const { user_id } = route.params;
@@ -27,49 +28,13 @@ const UserDetailsScreen = ({ route }) => {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [
+    
+  ]);
 
+  
 
-  const renderButton = (item) => {
-    // console.log('item is', item.user_status);
-    if (item.is_self) {
-      return (
-        <Button disabled size="tiny">
-          It is you
-        </Button>
-      );
-    } else if (item.is_friend === true) {
-      return (
-        <Button onPress={() => handele_unfriend(item)} size="tiny">
-          unfriend
-        </Button>
-      );
-
-      // user_status
-      // -1 = NO_REQUEST_SENT
-      // 1 = YOU_RECEIVED_REQUEST
-      // 0 = YOUR_REQUEST_SENT
-    } else if (item.user_status === -1) {
-      return (
-        <Button onPress={() => handle_send_request(item)} size="tiny">
-          add friend
-        </Button>
-      );
-    } else if (item.user_status === 1) {
-      return (
-        <Button onPress={() => handle_accept_request(item)} size="tiny">
-          accept request
-        </Button>
-      );
-    } else if (item.user_status === 0) {
-      return (
-        <Button onPress={() => handle_cancel_request(item)} size="tiny">
-          cancel request
-        </Button>
-      );
-    }
-  };
-
+   console.log("from user screen ",user);
   return loading ? (
     <Layout style={styles.container}>
       <Text>Loading...</Text>
@@ -92,8 +57,7 @@ const UserDetailsScreen = ({ route }) => {
 
 
           {/* add friend button */}
-            {renderButton(user)}
-
+            {<UserStatusButton item={user} setItem={setUser} />}
           <Text category="h4" style={styles.title}>
             {user.phone_number}
           </Text>

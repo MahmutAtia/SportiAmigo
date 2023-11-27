@@ -15,11 +15,13 @@ class SportScheduleSerializer(serializers.ModelSerializer):
 
 class BookingSerializer(serializers.ModelSerializer):
 
-
-    facility_sport_schedule = SportScheduleSerializer(read_only=True)
+    # There is a problem here, i am not able to get the facility_sport_schedule object
+    
+    facility_sport_schedule = SportScheduleSerializer() # i had a problem here, i was using as read only field
     class Meta:
         model = Booking
-        fields = ['facility_sport_schedule', 'booking_date']
+        fields = [ 'facility_sport_schedule', 'booking_date']
+        write_only_fields = ['facility_sport_schedule', 'booking_date']
 
     def create(self, validated_data):
         user = self.context['request'].user
