@@ -25,7 +25,12 @@ class BookingSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = self.context['request'].user
-        booking = Booking.objects.create(user=user, **validated_data)
+
+        facility_sport_schedule_id = validated_data.pop('facility_sport_schedule')
+
+        booking = Booking.objects.create(user=user,            
+        facility_sport_schedule_id=facility_sport_schedule_id,
+        **validated_data)
         return booking
     
     def validate(self, data):
@@ -35,6 +40,7 @@ class BookingSerializer(serializers.ModelSerializer):
         user = self.context['request'].user
         facility_sport_schedule = data['facility_sport_schedule']
         booking_date = data['booking_date']
+
         print(user, facility_sport_schedule, booking_date)
         if Booking.objects.filter(user=user, facility_sport_schedule=facility_sport_schedule, booking_date=booking_date).exists():
             raise serializers.ValidationError("Booking already exists for this date and time")
